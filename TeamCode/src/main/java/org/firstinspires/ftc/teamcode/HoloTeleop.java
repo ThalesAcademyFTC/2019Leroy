@@ -34,7 +34,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
 
 /**
  * This file provides basic Telop driving for a Pushbot robot.
@@ -150,7 +149,7 @@ public class HoloTeleop extends OpMode {
             robot.motor4.setPower(0);
         }
         //---------------------------------------------------------------------------------------
-        //Move Right Function
+        //Move left Function
             if (gamepad1.left_stick_x == 1) {   /*Y JOYSTICK MAY NEED TO BE CHANGED, ADD TELEMETRY*/
             robot.motor1.setPower(motorPower);
             robot.motor2.setPower(motorPower);
@@ -190,7 +189,7 @@ public class HoloTeleop extends OpMode {
             robot.motor4.setPower(motorPower);
         }
         //----------------------------------------------------------------------------------------
-        if (gamepad1.right_bumper == true) {
+        if (gamepad1.right_trigger > 0.5) {
             robot.motor1.setPower(-motorPower);
             robot.motor4.setPower(motorPower);
         }
@@ -201,7 +200,7 @@ public class HoloTeleop extends OpMode {
         }
 
 
-        if (gamepad1.right_trigger > 0.5) {
+        if (gamepad1.right_bumper == true) {
             robot.motor2.setPower(-motorPower);
             robot.motor3.setPower(motorPower);
         }
@@ -239,8 +238,8 @@ public class HoloTeleop extends OpMode {
         }
 
         if (gamepad2.a) {
-        robot.servo1.setPosition(0.1);
-        robot.servo2.setPosition(0.9);
+        robot.servo1.setPosition(0.15);
+        robot.servo2.setPosition(0.85);
         }
 
         if (gamepad2.left_stick_y == 0 && gamepad2.left_stick_x == 0) {
