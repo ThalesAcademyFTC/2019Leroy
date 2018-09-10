@@ -21,13 +21,17 @@ public class ClaspTeleop extends OpMode {
 
     public double[] zoneList = new double[]{0.35, 0.5, 0.75};
 
+    @Override
     public void init() {
         anvil = new Anvil();
         anvil.init(hardwareMap, "TANK", telemetry);
     }
+
+    @Override
     public void loop() {
         //Handle buttons first
         if (gamepad1.a) { //Emergency brake. Stops all motors immediately.
+            //Effaceable button; can be re-assigned if wanted or needed.
             anvil.rest();
             while (gamepad1.a) {
                 if (!(gamepad1.a)) break;

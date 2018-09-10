@@ -78,10 +78,7 @@ public class Claspy2 extends OpMode {
          */
     @Override
     public void init() {
-
-
-
-
+        anvil = new Anvil();
     }
 
     /*
