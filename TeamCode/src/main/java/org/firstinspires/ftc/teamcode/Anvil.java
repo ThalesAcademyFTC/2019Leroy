@@ -64,7 +64,6 @@ public class Anvil {
                 right = new DcMotor[]{motor2, motor4};
                 left = new DcMotor[]{motor1, motor3};
                 hs = false;
-                telemetry.addLine("You are using an unoptimized drive system for Holonomic. Please use Metal.");
                 break;
             case "TANK":
                 motor1 = hwMap.dcMotor.get("motor1");
