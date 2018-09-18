@@ -15,11 +15,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  */
 
 public class ClaspTeleop extends OpMode {
-    public Anvil anvil;
+    Anvil anvil;
 
-    public boolean speedMode = true;
+    boolean speedMode = true;
 
-    public double[] zoneList = new double[]{0.35, 0.5, 0.75};
+    double[] zoneList = new double[]{0.35, 0.5, 0.75};
 
     @Override
     public void init() {
