@@ -152,6 +152,11 @@ public class HoloClaspy extends OpMode {
             } else {
                 anvil.moveForward(-gamepad1.left_stick_y);
             }
+            if (gamepad1.right_stick_x > 0){
+                anvil.turnLeft(gamepad1.right_stick_x);
+            } else {
+                anvil.turnRight(-gamepad1.right_stick_x);
+            }
 
         }
 

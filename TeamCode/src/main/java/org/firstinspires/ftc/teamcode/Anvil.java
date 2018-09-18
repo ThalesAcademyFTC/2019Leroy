@@ -170,9 +170,9 @@ public class Anvil {
     }
     public void holoMoveRight(double pace) {
         motor1.setPower(-pace);
-        motor2.setPower(-pace);
+        motor2.setPower(pace);
         motor3.setPower(pace);
-        motor4.setPower(pace);
+        motor4.setPower(-pace);
     }
     public void holoMoveLeft() {
         motor1.setPower(-prevailingSpeed);
@@ -182,9 +182,9 @@ public class Anvil {
     }
     public void holoMoveLeft(double pace) {
         motor1.setPower(pace);
-        motor2.setPower(pace);
+        motor2.setPower(-pace);
         motor3.setPower(-pace);
-        motor4.setPower(-pace);
+        motor4.setPower(pace);
     }
     public void distDeg(double initx, double inity, double posX, double posY) {
         double distance = Math.sqrt(2 * (inity - posY) * (initx - posX));
