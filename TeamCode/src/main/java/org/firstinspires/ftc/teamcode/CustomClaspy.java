@@ -53,15 +53,15 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp(name="Claspy", group="Pushbot")
 //@Disabled
-public class Claspy2 extends OpMode {
+public class CustomClaspy extends OpMode {
 
     /* Declare OpMode members. */
     //OldHWDrive robot = new OldHWDrive(); // use the class created to define a Pushbot's hardware
     //public Anvil anvil;
-    public Anvil anvil = new Anvil();
-    public boolean speedMode = false;
+    Anvil anvil = new Anvil();
+    boolean speedMode = false;
 
-    public double[] zoneList = new double[]{0.35, 0.5, 0.75};
+    double[] zoneList = new double[]{0.35, 0.5, 0.75};
 
     // could also use HardwarePushbotMatrix class.
     public void swapControllers() {

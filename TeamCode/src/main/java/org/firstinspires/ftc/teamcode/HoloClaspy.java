@@ -58,10 +58,10 @@ public class HoloClaspy extends OpMode {
     /* Declare OpMode members. */
     //OldHWDrive robot = new OldHWDrive(); // use the class created to define a Pushbot's hardware
     //public Anvil anvil;
-    public Anvil anvil = new Anvil();
-    public boolean speedMode = false;
+    Anvil anvil = new Anvil();
+    boolean speedMode = false;
 
-    public double[] zoneList = new double[]{0.35, 0.5, 0.75};
+    double[] zoneList = new double[]{0.35, 0.5, 0.75};
 
     // could also use HardwarePushbotMatrix class.
     public void swapControllers() {
@@ -137,39 +137,24 @@ public class HoloClaspy extends OpMode {
             }
         } else if (gamepad1.dpad_down) swapControllers();
         //Handle controls
-        if (gamepad1.atRest() || gamepad1.left_stick_x == 0) {
+        if (gamepad1.atRest()) {
             anvil.rest();
         } else {
             // if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
             if (gamepad1.left_stick_x > 0) {
-                if (speedMode) {
-                    anvil.turnLeft(computerAssistedZones());
-                } else {
-                    anvil.turnLeft(gamepad1.left_stick_x);
-                }
+                anvil.holoMoveLeft(gamepad1.left_stick_x);
             } else {
-                if (speedMode) {
-                    anvil.turnRight(computerAssistedZones());
-                } else {
-                    anvil.turnRight(-gamepad1.left_stick_x);
+                anvil.holoMoveRight(-gamepad1.left_stick_x);
                 }
             }
-            //else {
             if (gamepad1.left_stick_y > 0) {
-                if (speedMode) {
-                    anvil.moveBackward(computerAssistedZones());
-                } else {
-                    anvil.moveBackward(gamepad1.left_stick_y);
-                }
+                anvil.moveBackward(gamepad1.left_stick_y);
             } else {
-                if (speedMode) {
-                    anvil.moveForward(computerAssistedZones());
-                } else {
-                    anvil.moveForward(-gamepad1.left_stick_y);
-                }
+                anvil.moveForward(-gamepad1.left_stick_y);
             }
+
         }
-    }
+
 
 
 
