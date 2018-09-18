@@ -57,32 +57,29 @@ public class Claspy2 extends OpMode {
 
     /* Declare OpMode members. */
     //OldHWDrive robot = new OldHWDrive(); // use the class created to define a Pushbot's hardware
-    //public Anvil anvil;
-    public Anvil anvil = new Anvil();
-    public boolean speedMode = false;
+    public Anvil anvil;
+
+    public boolean speedMode = true;
 
     public double[] zoneList = new double[]{0.35, 0.5, 0.75};
-
     // could also use HardwarePushbotMatrix class.
     public void swapControllers() {
         Gamepad r = gamepad1;
         gamepad1 = gamepad2;
         gamepad2 = r;
     }
-
     public double computerAssistedZones() {
         double a = Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2));
-        //if diagonal is 1,1 then we need to divide by the Math.sqrt(2). If diagonal is a distance of 1,
-        // then this program should work
-        return zoneList[(int) Math.ceil(a * zoneList.length)];
+        return zoneList[(int) Math.ceil(a*zoneList.length) - 1];
     }
 
     /*
-     * Code to run ONCE when the driver hits INIT
-     */
+         * Code to run ONCE when the driver hits INIT
+         */
     @Override
     public void init() {
-        anvil.init(hardwareMap, "HOLONOMIC", telemetry);
+        anvil = new Anvil();
+        anvil.init(hardwareMap, "TANK", telemetry);
     }
 
     /*
@@ -103,6 +100,7 @@ public class Claspy2 extends OpMode {
         //Variable defining
 
 
+
     }
 
 
@@ -114,58 +112,59 @@ public class Claspy2 extends OpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
-        telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
-        telemetry.addData("SpeedMode", speedMode);
         //Handle buttons first
         if (gamepad1.a) { //Emergency brake. Stops all motors immediately.
             anvil.rest();
             while (gamepad1.a) {
                 if (!(gamepad1.a)) break;
             }
-        } else if (gamepad1.b) {
+        }
+        else if (gamepad1.b) {
             //Unused button
-        } else if (gamepad1.x) {
+        }
+        else if (gamepad1.x) {
             //Unused button
-        } else if (gamepad1.y) {
+        }
+        else if (gamepad1.y) {
             //Unused button
-        } else if (gamepad1.dpad_left) {
-            if (speedMode) {
-                speedMode = false;
-            } else {
-                speedMode = true;
-            }
-        } else if (gamepad1.dpad_down) swapControllers();
+        }
+        else if (gamepad1.dpad_left) speedMode ^= true;
+        else if (gamepad1.dpad_down) swapControllers();
         //Handle controls
-        if (gamepad1.atRest() || gamepad1.left_stick_x == 0) {
+        if (gamepad1.atRest()) {
             anvil.rest();
-        } else {
-            // if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-            if (gamepad1.left_stick_x > 0) {
-                if (speedMode) {
-                    anvil.turnLeft(computerAssistedZones());
-                } else {
-                    anvil.turnLeft(gamepad1.left_stick_x);
+        }
+        else {
+            if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+                if (gamepad1.left_stick_x > 0) {
+                    if (speedMode) {
+                        anvil.turnLeft(computerAssistedZones());
+                    } else {
+                        anvil.turnLeft(gamepad1.left_stick_x);
+                    }
                 }
-            } else {
-                if (speedMode) {
-                    anvil.turnRight(computerAssistedZones());
-                } else {
-                    anvil.turnRight(-gamepad1.left_stick_x);
+                else {
+                    if (speedMode) {
+                        anvil.turnRight(computerAssistedZones());
+                    } else {
+                        anvil.turnRight(-gamepad1.left_stick_x);
+                    }
                 }
             }
-            //else {
-            if (gamepad1.left_stick_y > 0) {
-                if (speedMode) {
-                    anvil.moveBackward(computerAssistedZones());
-                } else {
-                    anvil.moveBackward(gamepad1.left_stick_y);
+            else {
+                if (gamepad1.left_stick_y > 0) {
+                    if (speedMode) {
+                        anvil.moveBackward(computerAssistedZones());
+                    } else {
+                        anvil.moveBackward(gamepad1.left_stick_y);
+                    }
                 }
-            } else {
-                if (speedMode) {
-                    anvil.moveForward(computerAssistedZones());
-                } else {
-                    anvil.moveForward(-gamepad1.left_stick_y);
+                else {
+                    if (speedMode) {
+                        anvil.moveForward(computerAssistedZones());
+                    } else {
+                        anvil.moveForward(-gamepad1.left_stick_y);
+                    }
                 }
             }
         }
