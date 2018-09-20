@@ -117,6 +117,7 @@ public class HoloClaspy extends OpMode {
         telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
         telemetry.addData("SpeedMode", speedMode);
+
         //Handle buttons first
         if (gamepad1.a) { //Emergency brake. Stops all motors immediately.
             anvil.rest();
@@ -130,11 +131,7 @@ public class HoloClaspy extends OpMode {
         } else if (gamepad1.y) {
             //Unused button
         } else if (gamepad1.dpad_left) {
-            if (speedMode) {
-                speedMode = false;
-            } else {
-                speedMode = true;
-            }
+            speedMode ^= true;
         } else if (gamepad1.dpad_down) swapControllers();
         //Handle controls
         if (gamepad1.atRest()) {

@@ -82,7 +82,7 @@ public class CustomClaspy extends OpMode {
      */
     @Override
     public void init() {
-        anvil.init(hardwareMap, "HOLONOMIC", telemetry);
+        anvil.init(hardwareMap, "TANK", telemetry);
     }
 
     /*
@@ -140,37 +140,37 @@ public class CustomClaspy extends OpMode {
         if (gamepad1.atRest() || gamepad1.left_stick_x == 0) {
             anvil.rest();
         } else {
-            // if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-            if (gamepad1.left_stick_x > 0) {
-                if (speedMode) {
-                    anvil.turnLeft(computerAssistedZones());
+            if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+                if (gamepad1.left_stick_x > 0) {
+                    if (speedMode) {
+                        anvil.turnLeft(computerAssistedZones());
+                    } else {
+                        anvil.turnLeft(gamepad1.left_stick_x);
+                    }
                 } else {
-                    anvil.turnLeft(gamepad1.left_stick_x);
+                    if (speedMode) {
+                        anvil.turnRight(computerAssistedZones());
+                    } else {
+                        anvil.turnRight(-gamepad1.left_stick_x);
+                    }
                 }
             } else {
-                if (speedMode) {
-                    anvil.turnRight(computerAssistedZones());
+                if (gamepad1.left_stick_y > 0) {
+                    if (speedMode) {
+                        anvil.moveBackward(computerAssistedZones());
+                    } else {
+                        anvil.moveBackward(gamepad1.left_stick_y);
+                    }
                 } else {
-                    anvil.turnRight(-gamepad1.left_stick_x);
-                }
-            }
-            //else {
-            if (gamepad1.left_stick_y > 0) {
-                if (speedMode) {
-                    anvil.moveBackward(computerAssistedZones());
-                } else {
-                    anvil.moveBackward(gamepad1.left_stick_y);
-                }
-            } else {
-                if (speedMode) {
-                    anvil.moveForward(computerAssistedZones());
-                } else {
-                    anvil.moveForward(-gamepad1.left_stick_y);
+                    if (speedMode) {
+                        anvil.moveForward(computerAssistedZones());
+                    } else {
+                        anvil.moveForward(-gamepad1.left_stick_y);
+                    }
                 }
             }
         }
     }
-
 
 
     /*

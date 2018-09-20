@@ -36,6 +36,7 @@ public class Anvil {
 
     public boolean hs = true;
 
+
     public void init (HardwareMap ahwMap, String type, Telemetry telem){
         hwMap = ahwMap;
 
@@ -151,7 +152,10 @@ public class Anvil {
             for (DcMotor x:right) x.setPower(pace);
         }
     }
-    public void moveBackward(double pace) {for (DcMotor x:forward) x.setPower(-pace);}
+    public void moveBackward(double pace) {
+        for (DcMotor x:forward)
+            x.setPower(-pace);
+    }
 
     public void rest() {for (DcMotor x:forward) x.setPower(0);}
 
@@ -162,28 +166,29 @@ public class Anvil {
     }
 
     //Holonomic specific movements
-    public void holoMoveRight() {
-        motor1.setPower(prevailingSpeed);
-        motor2.setPower(-prevailingSpeed);
-        motor3.setPower(prevailingSpeed);
-        motor4.setPower(-prevailingSpeed);
-    }
+
     public void holoMoveRight(double pace) {
         motor1.setPower(-pace);
         motor2.setPower(pace);
         motor3.setPower(pace);
         motor4.setPower(-pace);
     }
-    public void holoMoveLeft() {
-        motor1.setPower(-prevailingSpeed);
-        motor2.setPower(prevailingSpeed);
-        motor3.setPower(-prevailingSpeed);
-        motor4.setPower(prevailingSpeed);
-    }
     public void holoMoveLeft(double pace) {
         motor1.setPower(pace);
         motor2.setPower(-pace);
         motor3.setPower(-pace);
+        motor4.setPower(pace);
+    }
+    public void holoMoveForward (double pace) {
+        motor1.setPower(-pace);
+        motor2.setPower(-pace);
+        motor3.setPower(-pace);
+        motor4.setPower(-pace);
+    }
+    public void holoMoveBackward (double pace) {
+        motor1.setPower(pace);
+        motor2.setPower(pace);
+        motor3.setPower(pace);
         motor4.setPower(pace);
     }
     public void distDeg(double initx, double inity, double posX, double posY) {
