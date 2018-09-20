@@ -43,10 +43,10 @@ public class Anvil {
         telemetry = telem;
 
         //Define and connect variables to their matching motors on the robot
-        clawMotor = hwMap.dcMotor.get("clawMotor");
+        /*clawMotor = hwMap.dcMotor.get("clawMotor");
         servo1 = hwMap.servo.get("servo1");
         servo2 = hwMap.servo.get("servo2");
-        jewelServo = hwMap.servo.get("jewelServo");
+        jewelServo = hwMap.servo.get("jewelServo");*/
 
         switch (type) {
             case "HOLONOMIC":
