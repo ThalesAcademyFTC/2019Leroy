@@ -12,10 +12,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by dcrenshaw on 3/3/18.
  * Extensible class derived from Metal. Used to invoke Metal upon drive trains other than Holonomic
  */
-/*
- * DEPRECATION NOTICE:
- * Segmented speed system has been removed in favor of externally controlled speed systems.
- */
 
 public class Anvil {
     //Define servo and motor variables
@@ -107,14 +103,14 @@ public class Anvil {
                 motor2 = hwMap.dcMotor.get("motor2");
                 //Set motor directions. These should all be set so that power 1 for all
                 //motors == robot moves forwards.
-                motor1.setDirection(DcMotor.Direction.FORWARD);
-                motor2.setDirection(DcMotor.Direction.REVERSE);
+                motor1.setDirection(DcMotor.Direction.REVERSE);
+                motor2.setDirection(DcMotor.Direction.FORWARD);
                 //Set motor purposes for maneuvers. Motors in 'right' are the motors which must
                 //move in reverse for the robot to turn right, and the same applies for left.
                 //'forward' should contain all motors.
                 forward = new DcMotor[]{motor1, motor2};
-                right = new DcMotor[]{motor2};
-                left = new DcMotor[]{motor1};
+                right = new DcMotor[]{motor1};
+                left = new DcMotor[]{motor2};
                 break;
              */
         }
