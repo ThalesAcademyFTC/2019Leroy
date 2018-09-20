@@ -61,7 +61,7 @@ public class CustomClaspy extends OpMode {
     Anvil anvil = new Anvil();
     boolean speedMode = false;
 
-    double[] zoneList = new double[]{0.35, 0.5, 0.75};
+    double[] zoneList = new double[]{0.35, 0.5, 0.75, 1};
 
     // could also use HardwarePushbotMatrix class.
     public void swapControllers() {
@@ -74,7 +74,7 @@ public class CustomClaspy extends OpMode {
         double a = Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2));
         //if diagonal is 1,1 then we need to divide by the Math.sqrt(2). If diagonal is a distance of 1,
         // then this program should work
-        return zoneList[(int) Math.ceil(a * zoneList.length)];
+        return zoneList[(int) Math.ceil(a)];
     }
 
     /*
@@ -82,7 +82,7 @@ public class CustomClaspy extends OpMode {
      */
     @Override
     public void init() {
-        anvil.init(hardwareMap, "TANK", telemetry);
+        anvil.init(hardwareMap, "WEST_COAST", telemetry);
     }
 
     /*
@@ -137,7 +137,7 @@ public class CustomClaspy extends OpMode {
             }
         } else if (gamepad1.dpad_down) swapControllers();
         //Handle controls
-        if (gamepad1.atRest() || gamepad1.left_stick_x == 0) {
+        if (gamepad1.atRest()) {
             anvil.rest();
         } else {
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {

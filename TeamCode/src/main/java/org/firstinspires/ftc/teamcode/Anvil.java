@@ -43,14 +43,15 @@ public class Anvil {
         telemetry = telem;
 
         //Define and connect variables to their matching motors on the robot
-        /*clawMotor = hwMap.dcMotor.get("clawMotor");
-        servo1 = hwMap.servo.get("servo1");
-        servo2 = hwMap.servo.get("servo2");
-        jewelServo = hwMap.servo.get("jewelServo");*/
+
 
         switch (type) {
             case "HOLONOMIC":
                 //Assign motors
+                clawMotor = hwMap.dcMotor.get("clawMotor");
+                servo1 = hwMap.servo.get("servo1");
+                servo2 = hwMap.servo.get("servo2");
+                jewelServo = hwMap.servo.get("jewelServo");
                 motor1 = hwMap.dcMotor.get("motor1");
                 motor2 = hwMap.dcMotor.get("motor2");
                 motor3 = hwMap.dcMotor.get("motor3");
@@ -69,11 +70,11 @@ public class Anvil {
             case "TANK":
                 motor1 = hwMap.dcMotor.get("motor1");
                 motor2 = hwMap.dcMotor.get("motor2");
-                motor1.setDirection(DcMotor.Direction.FORWARD);
+                motor1.setDirection(DcMotor.Direction.REVERSE);
                 motor2.setDirection(DcMotor.Direction.FORWARD);
                 forward = new DcMotor[]{motor1, motor2};
-                right = new DcMotor[]{motor2};
-                left = new DcMotor[]{motor1};
+                right = new DcMotor[]{motor1};
+                left = new DcMotor[]{motor2};
                 break;
             case "WEST_COAST":
                 motor1 = hwMap.dcMotor.get("motor1");
@@ -81,9 +82,9 @@ public class Anvil {
                 motor3 = hwMap.dcMotor.get("motor3");
                 motor4 = hwMap.dcMotor.get("motor4");
                 motor1.setDirection(DcMotor.Direction.FORWARD);
-                motor2.setDirection(DcMotor.Direction.FORWARD);
+                motor2.setDirection(DcMotor.Direction.REVERSE);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
-                motor4.setDirection(DcMotor.Direction.FORWARD);
+                motor4.setDirection(DcMotor.Direction.REVERSE);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor2, motor4};
                 left = new DcMotor[]{motor1, motor3};

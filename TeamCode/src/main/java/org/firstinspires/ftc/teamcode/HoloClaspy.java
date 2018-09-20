@@ -71,7 +71,7 @@ public class HoloClaspy extends OpMode {
     }
 
     public double computerAssistedZones() {
-        double a = Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2));
+        double a = Math.sqrt(2)*Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2));
         //if diagonal is 1,1 then we need to divide by the Math.sqrt(2). If diagonal is a distance of 1,
         // then this program should work
         return zoneList[(int) Math.ceil(a * zoneList.length)];
@@ -139,9 +139,11 @@ public class HoloClaspy extends OpMode {
         } else {
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
                 if (gamepad1.left_stick_x > 0) {
-                    anvil.holoMoveLeft(gamepad1.left_stick_x);
+                    if (speedMode) anvil.holoMoveLeft(gamepad1.left_stick_x);
+                    else anvil.holoMoveLeft(computerAssistedZones());
                 } else {
-                    anvil.holoMoveRight(-gamepad1.left_stick_x);
+                    if (speedMode) anvil.holoMoveRight(-gamepad1.left_stick_x);
+                    else anvil.holoMoveRight(computerAssistedZones());
                 }
             } else {
                 if (gamepad1.left_stick_y > 0) {
