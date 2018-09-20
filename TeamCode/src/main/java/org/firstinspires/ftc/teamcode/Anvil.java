@@ -81,13 +81,13 @@ public class Anvil {
                 motor2 = hwMap.dcMotor.get("motor2");
                 motor3 = hwMap.dcMotor.get("motor3");
                 motor4 = hwMap.dcMotor.get("motor4");
-                motor1.setDirection(DcMotor.Direction.FORWARD);
-                motor2.setDirection(DcMotor.Direction.REVERSE);
+                motor1.setDirection(DcMotor.Direction.REVERSE);
+                motor2.setDirection(DcMotor.Direction.FORWARD);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
                 motor4.setDirection(DcMotor.Direction.REVERSE);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
-                right = new DcMotor[]{motor2, motor4};
-                left = new DcMotor[]{motor1, motor3};
+                right = new DcMotor[]{motor1, motor4};
+                left = new DcMotor[]{motor2, motor3};
                 break;
             /*
             case "AUTO":
@@ -161,6 +161,7 @@ public class Anvil {
     public void rest() {for (DcMotor x:forward) x.setPower(0);}
 
     //Experimental function to turn while moving forward
+    //ctx = controller x
     public void diff(double ctx, double pace) {
         for (DcMotor x:left) x.setPower(pace - (ctx / 2));
         for (DcMotor x:right) x.setPower(pace + (ctx / 2));
