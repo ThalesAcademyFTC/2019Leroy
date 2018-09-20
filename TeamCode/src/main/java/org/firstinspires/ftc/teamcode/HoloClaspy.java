@@ -140,22 +140,28 @@ public class HoloClaspy extends OpMode {
         if (gamepad1.atRest()) {
             anvil.rest();
         } else {
-            // if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-            if (gamepad1.left_stick_x > 0) {
-                anvil.holoMoveLeft(gamepad1.left_stick_x);
-            } else {
-                anvil.holoMoveRight(-gamepad1.left_stick_x);
+            if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+                if (gamepad1.left_stick_x > 0) {
+                    anvil.holoMoveLeft(gamepad1.left_stick_x);
+                } else {
+                    anvil.holoMoveRight(-gamepad1.left_stick_x);
                 }
-            }
-            if (gamepad1.left_stick_y > 0) {
-                anvil.moveBackward(gamepad1.left_stick_y);
             } else {
-                anvil.moveForward(-gamepad1.left_stick_y);
+                if (gamepad1.left_stick_y > 0) {
+                    anvil.moveBackward(gamepad1.left_stick_y);
+                } else {
+                    anvil.moveForward(-gamepad1.left_stick_y);
+                }
+                if (gamepad1.right_stick_x > 0) {
+                    anvil.turnLeft(gamepad1.right_stick_x);
+                } else {
+                    anvil.turnRight(-gamepad1.right_stick_x);
+                }
             }
 
         }
 
-
+    }
 
 
     /*
