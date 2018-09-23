@@ -18,6 +18,7 @@ public class ClaspTeleop extends OpMode {
     @Override
     public void init() {
         anvil.init(hardwareMap, "WEST_COAST", telemetry);
+        Competition.init(hardwareMap);
     }
 
     @Override
@@ -31,14 +32,8 @@ public class ClaspTeleop extends OpMode {
             while (gamepad1.a) {
                 if (!(gamepad1.a)) break;
             }
-        } else if (gamepad1.b) {
-            //Unused button
-        } else if (gamepad1.x) {
-            //Unused button
-        } else if (gamepad1.y) {
-            //Unused button
-        } else if (gamepad1.dpad_left) {
-            //Unused button
+        } else if (gamepad1.left_trigger != .0f) {
+            //Grab things
         }
         //Handle controls
         if (gamepad1.atRest()) {
