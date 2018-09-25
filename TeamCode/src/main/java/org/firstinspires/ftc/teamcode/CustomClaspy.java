@@ -52,8 +52,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="CustomClaspy", group="Pushbot")
-@Disabled
+@TeleOp(name="Steve", group="Pushbot")
+//@Disabled
 public class CustomClaspy extends OpMode {
 
     /* Declare OpMode members. */
@@ -100,11 +100,8 @@ public class CustomClaspy extends OpMode {
         telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
         //Handle buttons first
-        if (gamepad1.a) { //Emergency brake. Stops all motors immediately.
-            anvil.rest();
-            while (gamepad1.a) {
-                if (!(gamepad1.a)) break;
-            }
+        if (gamepad1.a) {
+            //Unused button
         } else if (gamepad1.b) {
             //Unused button
         } else if (gamepad1.x) {

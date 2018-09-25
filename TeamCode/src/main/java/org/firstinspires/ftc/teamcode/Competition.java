@@ -17,11 +17,12 @@ public class Competition {
         //Set up motors and stuffs
     }
 
-    private static void Sample() {
+    public static void Sample() {
         //None of this is actually implemented. Just so you know.
     }
-    private static void Drop() {
+    public static void Drop() {
         //Nope, not this, either.
     }
+    public static void Orient() {}
 
 }
