@@ -60,24 +60,6 @@ public class CustomClaspy extends OpMode {
     //OldHWDrive robot = new OldHWDrive(); // use the class created to define a Pushbot's hardware
     //public Anvil anvil;
     Anvil anvil = new Anvil();
-    boolean speedMode = false;
-
-    double[] zoneList = new double[]{0.35, 0.5, 0.75, 1};
-
-    // could also use HardwarePushbotMatrix class.
-    public void swapControllers() {
-        Gamepad r = gamepad1;
-        gamepad1 = gamepad2;
-        gamepad2 = r;
-    }
-
-    public double computerAssistedZones() {
-        double a = Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2));
-        //if diagonal is 1,1 then we need to divide by the Math.sqrt(2). If diagonal is a distance of 1,
-        // then this program should work
-        return zoneList[(int) Math.ceil(a)];
-    }
-
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -117,7 +99,6 @@ public class CustomClaspy extends OpMode {
     public void loop() {
         telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
-        telemetry.addData("SpeedMode", speedMode);
         //Handle buttons first
         if (gamepad1.a) { //Emergency brake. Stops all motors immediately.
             anvil.rest();
@@ -131,44 +112,18 @@ public class CustomClaspy extends OpMode {
         } else if (gamepad1.y) {
             //Unused button
         } else if (gamepad1.dpad_left) {
-            if (speedMode) {
-                speedMode = false;
-            } else {
-                speedMode = true;
-            }
-        } else if (gamepad1.dpad_down) swapControllers();
-        //Handle controls
+            //Unused button
+        } else if (gamepad1.dpad_down) {
+            //Unused button
+        }
+        //Handle controls. Below is the main drive train functions.
         if (gamepad1.atRest()) {
             anvil.rest();
         } else {
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-                if (gamepad1.left_stick_x > 0) {
-                    if (speedMode) {
-                        anvil.turnLeft(computerAssistedZones());
-                    } else {
-                        anvil.turnLeft(gamepad1.left_stick_x);
-                    }
-                } else {
-                    if (speedMode) {
-                        anvil.turnRight(computerAssistedZones());
-                    } else {
-                        anvil.turnRight(-gamepad1.left_stick_x);
-                    }
-                }
+                anvil.turnLeft(gamepad1.left_stick_x);
             } else {
-                if (gamepad1.left_stick_y > 0) {
-                    if (speedMode) {
-                        anvil.moveBackward(computerAssistedZones());
-                    } else {
-                        anvil.moveBackward(gamepad1.left_stick_y);
-                    }
-                } else {
-                    if (speedMode) {
-                        anvil.moveForward(computerAssistedZones());
-                    } else {
-                        anvil.moveForward(-gamepad1.left_stick_y);
-                    }
-                }
+                anvil.moveBackward(gamepad1.left_stick_y);
             }
         }
     }
