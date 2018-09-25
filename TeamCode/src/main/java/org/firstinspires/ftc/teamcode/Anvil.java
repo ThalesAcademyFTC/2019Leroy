@@ -159,8 +159,8 @@ public class Anvil {
     //Experimental function to turn while moving forward
     //ctx = controller x
     public void diff(double ctx, double pace) {
-        for (DcMotor x:left) x.setPower(pace - (ctx / 2));
-        for (DcMotor x:right) x.setPower(pace + (ctx / 2));
+        for (DcMotor x:left) x.setPower(pace - (ctx * 2));
+        for (DcMotor x:right) x.setPower(pace + (ctx * 2));
     }
 
     //Holonomic specific movements

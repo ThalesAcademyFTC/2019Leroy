@@ -52,8 +52,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Bernard", group="Pushbot")
-//@Disabled
+@TeleOp(name="Template", group = "Pushbot")
+@Disabled
 public class CustomClaspy extends OpMode {
 
     /* Declare OpMode members. */

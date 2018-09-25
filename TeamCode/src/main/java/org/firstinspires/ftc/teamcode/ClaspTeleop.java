@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * classic teleop.
  */
 
-@TeleOp(name="Clasp", group="Pushbot")
+@TeleOp(name="Bernard", group="Pushbot")
 public class ClaspTeleop extends OpMode {
 
     private Anvil anvil = new Anvil();
@@ -40,10 +40,9 @@ public class ClaspTeleop extends OpMode {
             anvil.rest();
         } else {
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-                //anvil.turnLeft(gamepad1.left_stick_x);
-                anvil.diff(gamepad1.left_stick_x, -gamepad1.left_stick_y);
+                anvil.turnLeft(gamepad1.left_stick_x);
             } else {
-                anvil.moveBackward(gamepad1.left_stick_y);
+                anvil.diff(gamepad1.left_stick_x, -gamepad1.left_stick_y);
             }
         }
     }
