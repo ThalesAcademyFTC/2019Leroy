@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Steve", group="Pushbot")
+@TeleOp(name="Bernard", group="Pushbot")
 //@Disabled
 public class CustomClaspy extends OpMode {
 
@@ -118,7 +118,7 @@ public class CustomClaspy extends OpMode {
             anvil.rest();
         } else {
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-                anvil.turnLeft(gamepad1.left_stick_x);
+                anvil.turnLeft(gamepad1.right_stick_x);
             } else {
                 anvil.moveBackward(gamepad1.left_stick_y);
             }

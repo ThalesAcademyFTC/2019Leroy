@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Bernard", group="Pushbot")
+@TeleOp(name="Steve", group="Pushbot")
 //@Disabled
 public class HoloClaspy extends OpMode {
 

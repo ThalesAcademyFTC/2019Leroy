@@ -40,7 +40,8 @@ public class ClaspTeleop extends OpMode {
             anvil.rest();
         } else {
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-                anvil.turnLeft(gamepad1.left_stick_x);
+                //anvil.turnLeft(gamepad1.left_stick_x);
+                anvil.diff(gamepad1.left_stick_x, -gamepad1.left_stick_y);
             } else {
                 anvil.moveBackward(gamepad1.left_stick_y);
             }
