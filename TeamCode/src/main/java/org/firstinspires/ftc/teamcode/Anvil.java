@@ -38,10 +38,27 @@ public class Anvil {
 
         telemetry = telem;
 
-        //Define and connect variables to their matching motors on the robot
 
 
+        //Each of these cases are for different drive trains, the setup for each drive train is within.
         switch (type) {
+            /*Example drive train:
+            case "TRAIN_NAME":
+                //Map all motors to proper variables.
+                motor1 = hwMap.dcMotor.get("motor1");
+                motor2 = hwMap.dcMotor.get("motor2");
+                //Set motor directions. These should all be set so that power 1 for all
+                //motors == robot moves forwards.
+                motor1.setDirection(DcMotor.Direction.REVERSE);
+                motor2.setDirection(DcMotor.Direction.FORWARD);
+                //Set motor purposes for maneuvers. Motors in 'right' are the motors which must
+                //move in reverse for the robot to turn right, and the same applies for left.
+                //'forward' should contain all motors.
+                forward = new DcMotor[]{motor1, motor2};
+                right = new DcMotor[]{motor1};
+                left = new DcMotor[]{motor2};
+                break;
+             */
             case "HOLONOMIC":
                 //Assign motors
                 clawMotor = hwMap.dcMotor.get("clawMotor");
@@ -85,34 +102,9 @@ public class Anvil {
                 right = new DcMotor[]{motor1, motor4};
                 left = new DcMotor[]{motor2, motor3};
                 break;
-            /*
-            case "AUTO":
-                // Scans robot hardware and makes an educated guess at drive train specifics
-                //INCOMPLETE - POTENTIALLY ABANDONED
-                for (Iterator x = hwMap.iterator(); x.hasNext();) {
-
-                }
-            */
             default:
                 telemetry.addLine("Invalid type " + type + " passed to Anvil's init function. Nothing has been set up.");
                 break;
-            /*Example drive train:
-            case "TRAIN_NAME":
-                //Map all motors to proper variables.
-                motor1 = hwMap.dcMotor.get("motor1");
-                motor2 = hwMap.dcMotor.get("motor2");
-                //Set motor directions. These should all be set so that power 1 for all
-                //motors == robot moves forwards.
-                motor1.setDirection(DcMotor.Direction.REVERSE);
-                motor2.setDirection(DcMotor.Direction.FORWARD);
-                //Set motor purposes for maneuvers. Motors in 'right' are the motors which must
-                //move in reverse for the robot to turn right, and the same applies for left.
-                //'forward' should contain all motors.
-                forward = new DcMotor[]{motor1, motor2};
-                right = new DcMotor[]{motor1};
-                left = new DcMotor[]{motor2};
-                break;
-             */
         }
         for (DcMotor x : forward) {x.setPower(0); x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);}
     }
@@ -127,7 +119,7 @@ public class Anvil {
             forward[x].setDirection(orderedDirections[x]);
         }
     }
-    //Movement and turning methods compatible with all drive trains
+    //Movement, turning, and resting methods for the all current drive trains
     public void moveForward(double pace) {for (DcMotor x:forward) x.setPower(pace);}
     public void turnRight(double pace) {
         if (hs) {
@@ -156,7 +148,7 @@ public class Anvil {
 
     public void rest() {for (DcMotor x:forward) x.setPower(0);}
 
-    //Experimental function to turn while moving forward
+    //Experimental function to turn while moving forward. Increases Maneuverability of robot.
     //ctx = controller x
     public void diff(double ctx, double pace) {
         for (DcMotor x:left) x.setPower(pace - (ctx * 2));
@@ -164,7 +156,6 @@ public class Anvil {
     }
 
     //Holonomic specific movements
-
     public void holoMoveRight(double pace) {
         motor1.setPower(-pace);
         motor2.setPower(pace);
@@ -177,18 +168,8 @@ public class Anvil {
         motor3.setPower(-pace);
         motor4.setPower(pace);
     }
-    public void holoMoveForward (double pace) {
-        motor1.setPower(-pace);
-        motor2.setPower(-pace);
-        motor3.setPower(-pace);
-        motor4.setPower(-pace);
-    }
-    public void holoMoveBackward (double pace) {
-        motor1.setPower(pace);
-        motor2.setPower(pace);
-        motor3.setPower(pace);
-        motor4.setPower(pace);
-    }
+    //Experimental Autonomous Code that locates the robot on the field using 2 distance sensors at 90 degree angles.
+    //Not needed any more because vuforia navigation targets can be used more efficiently.
     public void distDeg(double initx, double inity, double posX, double posY) {
         double distance = Math.sqrt(2 * (inity - posY) * (initx - posX));
         double degrees = Math.atan((inity - posY) / (initx - posX));

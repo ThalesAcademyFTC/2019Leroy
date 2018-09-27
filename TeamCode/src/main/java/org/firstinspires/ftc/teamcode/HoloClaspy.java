@@ -22,42 +22,42 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 @TeleOp(name="Steve", group="Pushbot")
 //@Disabled
 public class HoloClaspy extends OpMode {
-
+    //Initializing the Hardware Drive Anvil
     private Anvil anvil = new Anvil();
-    private boolean speedMode = false;
 
     @Override
     public void init() {
+    //Choosing the drive train from Anvil.
         anvil.init(hardwareMap, "HOLONOMIC", telemetry);
     }
 
     @Override
     public void loop() {
+        //Basic Telemetry used for testing with controller
         telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
-        telemetry.addData("SpeedMode", speedMode);
 
         //Handle buttons first
-        if (gamepad1.a) { //Emergency brake. Stops all motors immediately.
-            anvil.rest();
-            while (gamepad1.a) {
-                if (!(gamepad1.a)) break;
-            }
+        if (gamepad1.a) {
+            //Unused button
         } else if (gamepad1.b) {
             //Unused button
         } else if (gamepad1.x) {
             //Unused button
         } else if (gamepad1.y) {
             //Unused button
-        } else if (gamepad1.dpad_left) {
-            speedMode ^= true; //evil bitwise witchcraft
-            //Handle controls
+        } else if (gamepad1.dpad_left) {}
             if (gamepad1.atRest()) {
+            //Used to ensure that the robot does not move while the controller is at rest.
                 anvil.rest();
             } else {
+                //Moves the robot to the left if the right stick is moved to the left.
+                //Since left is the opposite of right, the right stick receiving a negative value makes the robot turn right.
                 if (Math.abs(gamepad1.right_stick_x) > 0) {
                     anvil.turnLeft(gamepad1.right_stick_x);
                 }
+                //Below decides whether the left stick x value is farther from the origin than the y value.
+                //This decides whether the robot needs to move sideways or forward/backward.
                 if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
                     anvil.holoMoveLeft(gamepad1.left_stick_x);
                 } else {
@@ -66,4 +66,3 @@ public class HoloClaspy extends OpMode {
             }
         }
     }
-}
