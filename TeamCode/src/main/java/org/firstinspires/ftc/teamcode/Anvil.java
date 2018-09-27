@@ -189,7 +189,6 @@ public class Anvil {
             x.setTargetPosition(target);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        //Incomplete
-        //SECTION: Competition specific code here.
+     //Incomplete, and possibly obsolete.
     }
 }
