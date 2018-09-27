@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -91,8 +92,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * is explained below.
  */
 
-@TeleOp(name="Concept: Vuforia Rover Nav", group ="Concept")
-@Disabled
+@Autonomous(name="Concept: Vuforia Rover Nav", group ="Concept")
+//@Disabled
 public class VuforiaNav extends LinearOpMode {
 
     /*
@@ -107,7 +108,7 @@ public class VuforiaNav extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private static final String VUFORIA_KEY = " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+    private static final String VUFORIA_KEY = "ATeL/Fn/////AAABmSfhyS8XrEDzmUk23Kkv+MxeFRT/SOQ2r/2NCLavFRh/7bOvcc7bjgoZ6Fhkn0FGCIL9hnojaRNRO+MUlh235crgEE6CtJoQsITOZVaf/cpmRPQPP1WLkDQBo/zZKmjkI68CCpP7VDO8DInfaYOE2koe2fgP65pE9ELovYEcb40HIqN85Me9fP5dIKFrYsvdt1uF1efJaQZYBa0JZ08SZ4QDs1ZPI/ZxdHTJWUhLKmvKOHKIXo6ruc2CJkEizk799cRVoipbJ6bYQ4MntSOARe+Mg1VDwnUwXNQWXgyOOB32mv5h5lHFr5SahcQgkE1XMgfzAqeTKAccX1X/fdNAe+0aDmvAc/w0t8DU4rxCo45j";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
