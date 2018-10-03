@@ -81,6 +81,7 @@ public class Auton2 extends LinearOpMode {
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
+        //Vuforia Init Code.
         anvil.init(hardwareMap, "HOLONOMIC", telemetry);
         telemetry.addData("Status", "Initialized");
         runtime.reset();
@@ -95,10 +96,12 @@ public class Auton2 extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters;
         List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         vufAut.vufInit(hardwareMap);
+        //The program begins after the waitForStart
         waitForStart();
 
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
+            //This code runs throughout the opmode. Below checks to see the location of the robot.
         vufAut.vufNav(targetVisible, allTrackables, lastLocation, telemetry);
 
         }
