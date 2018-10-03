@@ -150,7 +150,7 @@ public void AutonNavCheck(){
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
         }
         }
-        public void vufNav(boolean targetVisible , VuforiaTrackables allTrackables, OpenGLMatrix lastLocation, Telemetry telemetry){
+        public void vufNav(boolean targetVisible , List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, Telemetry telemetry){
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
                 if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {

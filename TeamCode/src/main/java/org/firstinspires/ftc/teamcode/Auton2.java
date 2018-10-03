@@ -41,7 +41,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,17 +88,18 @@ public class Auton2 extends LinearOpMode {
         final String VUFORIA_KEY;
         final float mmFTCFieldWidth, mmTargetHeight, mmPerInch;
         final VuforiaLocalizer.CameraDirection CAMERA_CHOICE;
-        OpenGLMatrix lastLocation;
-        boolean targetVisible;
+        OpenGLMatrix lastLocation = null;
+        boolean targetVisible = false;
         VuforiaLocalizer vuforia;
         int cameraMonitorViewId;
         VuforiaLocalizer.Parameters parameters;
+        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         vufAut.vufInit(hardwareMap);
         waitForStart();
 
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
-
+        vufAut.vufNav(targetVisible, allTrackables, lastLocation, telemetry);
 
         }
 
