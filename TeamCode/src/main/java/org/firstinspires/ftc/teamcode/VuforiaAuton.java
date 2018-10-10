@@ -79,7 +79,6 @@ public void AutonNavCheck(){
 
     //-------------------------------------------------------------------------------------------
 
-    public VuforiaTrackables targetsRoverRuckus;
     //Vuforia Code
         public void vufInit(HardwareMap ahwMap) {
         final String VUFORIA_KEY = "ATeL/Fn/////AAABmSfhyS8XrEDzmUk23Kkv+MxeFRT/SOQ2r/2NCLavFRh/7bOvcc7bjgoZ6Fhkn0FGCIL9hnojaRNRO+MUlh235crgEE6CtJoQsITOZVaf/cpmRPQPP1WLkDQBo/zZKmjkI68CCpP7VDO8DInfaYOE2koe2fgP65pE9ELovYEcb40HIqN85Me9fP5dIKFrYsvdt1uF1efJaQZYBa0JZ08SZ4QDs1ZPI/ZxdHTJWUhLKmvKOHKIXo6ruc2CJkEizk799cRVoipbJ6bYQ4MntSOARe+Mg1VDwnUwXNQWXgyOOB32mv5h5lHFr5SahcQgkE1XMgfzAqeTKAccX1X/fdNAe+0aDmvAc/w0t8DU4rxCo45j";
@@ -94,6 +93,7 @@ public void AutonNavCheck(){
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraDirection = CAMERA_CHOICE;
+        int prototype = 1;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.createVuforiaLocalizer(parameters);
@@ -147,7 +147,9 @@ public void AutonNavCheck(){
         for (VuforiaTrackable trackable : allTrackables) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
         }
+
         }
+
         public void vufNav(boolean targetVisible , List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, Telemetry telemetry){
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
