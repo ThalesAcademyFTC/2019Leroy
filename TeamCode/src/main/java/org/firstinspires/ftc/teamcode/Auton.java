@@ -110,21 +110,21 @@ public class Auton extends LinearOpMode {
         // Load the data sets that for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
         VuforiaTrackables targetsRoverRuckus = vuforia.loadTrackablesFromAsset("RoverRuckus");
-            VuforiaTrackable blueRover = targetsRoverRuckus.get(0);
-            blueRover.setName("Blue-Rover");
-            VuforiaTrackable redFootprint = targetsRoverRuckus.get(1);
-            redFootprint.setName("Red-Footprint");
-            VuforiaTrackable frontCraters = targetsRoverRuckus.get(2);
-            frontCraters.setName("Front-Craters");
-            VuforiaTrackable backSpace = targetsRoverRuckus.get(3);
-            backSpace.setName("Back-Space");
+        VuforiaTrackable blueRover = targetsRoverRuckus.get(0);
+        blueRover.setName("Blue-Rover");
+        VuforiaTrackable redFootprint = targetsRoverRuckus.get(1);
+        redFootprint.setName("Red-Footprint");
+        VuforiaTrackable frontCraters = targetsRoverRuckus.get(2);
+        frontCraters.setName("Front-Craters");
+        VuforiaTrackable backSpace = targetsRoverRuckus.get(3);
+        backSpace.setName("Back-Space");
 
-            // For convenience, gather together all the trackable objects in one easily-iterable collection */
-            List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
-            allTrackables.addAll(targetsRoverRuckus);
+        // For convenience, gather together all the trackable objects in one easily-iterable collection */
+        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+        allTrackables.addAll(targetsRoverRuckus);
 
 
-            OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
+        OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
                     .translation(0, mmFTCFieldWidth, mmTargetHeight)
                     .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
             blueRover.setLocation(blueRoverLocationOnField);
@@ -157,13 +157,8 @@ public class Auton extends LinearOpMode {
                 ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
             }
             /**--------------------------------------------------------------------------------------------------------------**/
-
-
-    /**---------------------------------------------------------------------------------------------------------------------------------------**/
-    //Vuforia Code
-
         waitForStart();
-
+        //Activates Vuforia.
         targetsRoverRuckus.activate();
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {

@@ -7,6 +7,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+
+import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 /**
  * Created by dcrenshaw on 3/3/18.
@@ -31,7 +35,6 @@ public class Anvil {
     public DcMotor[] forward, right, left;
 
     public boolean hs = true;
-
 
     public void init (HardwareMap ahwMap, String type, Telemetry telem){
         hwMap = ahwMap;
