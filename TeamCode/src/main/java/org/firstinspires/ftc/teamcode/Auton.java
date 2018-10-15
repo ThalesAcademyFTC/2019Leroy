@@ -91,6 +91,9 @@ public class Auton extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         runtime.reset();
         telemetry.update();
+        /**------------------------------------------------------------------------------------------------------------------------------------------------**/
+        //This code is for the initialization of the Vufori code. This code allows the camera on the robot to find its
+        //location on the field using 4 images located half way along the wall of each side.
         final String VUFORIA_KEY = "ATeL/Fn/////AAABmSfhyS8XrEDzmUk23Kkv+MxeFRT/SOQ2r/2NCLavFRh/7bOvcc7bjgoZ6Fhkn0FGCIL9hnojaRNRO+MUlh235crgEE6CtJoQsITOZVaf/cpmRPQPP1WLkDQBo/zZKmjkI68CCpP7VDO8DInfaYOE2koe2fgP65pE9ELovYEcb40HIqN85Me9fP5dIKFrYsvdt1uF1efJaQZYBa0JZ08SZ4QDs1ZPI/ZxdHTJWUhLKmvKOHKIXo6ruc2CJkEizk799cRVoipbJ6bYQ4MntSOARe+Mg1VDwnUwXNQWXgyOOB32mv5h5lHFr5SahcQgkE1XMgfzAqeTKAccX1X/fdNAe+0aDmvAc/w0t8DU4rxCo45j";
         final float mmPerInch = 25.4f;
         final float mmFTCFieldWidth = (12 * 6) * mmPerInch;
@@ -105,7 +108,7 @@ public class Auton extends LinearOpMode {
         parameters.cameraDirection = CAMERA_CHOICE;
 
         //  Instantiate the Vuforia engine
-        vuforia =ClassFactory.createVuforiaLocalizer(parameters);
+        vuforia = ClassFactory.createVuforiaLocalizer(parameters);
         //this used to be vuforia = ClassFactory.getInstance().
         // Load the data sets that for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
