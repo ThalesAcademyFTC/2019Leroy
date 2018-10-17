@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import android.os.Environment;
 
 /**
  * Created by dcrenshaw on 4/2/18.
@@ -17,7 +18,7 @@ import java.io.Serializable;
 
 public class NXSerializer {
 
-    private String filename = "NXHistoryPermanent.nxh";
+    private String filename = Environment.getDataDirectory() + "NXHistoryPermanent.nxh";
     private FileOutputStream ifile;
     private FileInputStream ofile;
 

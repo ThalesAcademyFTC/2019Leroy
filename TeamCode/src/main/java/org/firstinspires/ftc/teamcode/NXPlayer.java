@@ -4,10 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.exception.RobotCoreException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-
 /**
  * Created by dcrenshaw on 4/3/18.
  *
@@ -23,34 +19,33 @@ public class NXPlayer extends OpMode{
 
     private NXSerializer serializer = new NXSerializer();
     private NXStateHistory historian; //This will be a StateHistory later
-    private byte[][] a;
-    private long[] b;
 
     public void init() {
         //At least half of these lines will be pointless exception handling. Thanks, Java
         try {
             serializer.initializeFile();
-            serializer.deserialize();
+            historian = serializer.deserialize();
         }
         catch (Throwable e) {
             throw new RuntimeException("Everything that could go wrong has.");
         }
+        runResolved();
     }
     public void loop() {} // We don't need a loop
-    public void postproc() {
-        //This is really just to get away from the horribly messy init function
-        for (int x = 0; x < a.length; x++) {
+    private void runResolved() {
+        byte[][] controllerStateHistory = historian.getByteArray2d();
+        long[] timechain = historian.getTimeHistory();
+        for (int x = 0; x < controllerStateHistory.length; x++) {
             try {
-                teleconnect.gamepad1.fromByteArray(a[x]);
-                sleep(b[x + 1]);
+                teleconnect.gamepad1.fromByteArray(controllerStateHistory[x]);
             }
             catch (RobotCoreException e) {
-                telemetry.addLine("Gamepad library is in an invalid state. There's nothing else to be done.");
-                return;
+                throw new RuntimeException("Internal error; this one's beyond us.");
             }
+            sleep(timechain[x]);
         }
     }
-    public final void sleep(long milliseconds) {
+    private void sleep(long milliseconds) {
         //Ripped right from the FTC OpMode specifications
         try {
             Thread.sleep(milliseconds);

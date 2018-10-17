@@ -74,7 +74,6 @@ public class HoloTeleop extends OpMode {
     robot.servo2 = hardwareMap.servo.get("servo2");
     robot.jewelServo = hardwareMap.servo.get("jewelServo");
 
-
     }
 
     /*

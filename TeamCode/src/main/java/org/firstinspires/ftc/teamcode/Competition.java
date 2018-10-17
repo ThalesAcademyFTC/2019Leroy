@@ -14,7 +14,7 @@ public class Competition {
 
         hardwareMap = hmap;
 
-        //Set up motors and stuffs
+        //Set up motors and stuff
     }
 
     public static void Sample() {
