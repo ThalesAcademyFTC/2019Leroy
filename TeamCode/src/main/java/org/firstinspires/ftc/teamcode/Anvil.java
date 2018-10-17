@@ -10,6 +10,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 
+import java.util.ArrayList;
+
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 /**
@@ -193,5 +195,39 @@ public class Anvil {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
      //Incomplete, and possibly obsolete.
+    }
+    public void vufMove(ArrayList pos, float x, float y, float z){
+//Here we need to get from the pos, or current position, to the new position, x, y, z.
+//We will need to use the encoder ticks per inch of robot movement
+//We then use the robot direction to turn a certain amount. We will need to find out
+// how much the robot turns per tick in degrees
+        int target = 1; //Amount of encoder ticks to go forward
+        int turn = 1; // Amount of encoder ticks to turn
+        for (DcMotor w : right) {
+            w.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            w.setTargetPosition(turn);
+            w.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        for (DcMotor w : left) {
+            w.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            w.setTargetPosition(-turn);
+            w.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        sleep(600);
+        //This is for moving forward the desired amount.
+        for (DcMotor w : forward) {
+            w.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            w.setTargetPosition(target);
+            w.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        }
+
+    private void sleep(long milliseconds) {
+        //Ripped right from the FTC OpMode specifications
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

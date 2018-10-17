@@ -35,6 +35,7 @@ import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -79,10 +80,6 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();
 
-public void vufMove(ArrayList pos, float x, float y, float z){
-//Here we need to get from the pos, or current position, to the new position, x, y, z.
-//
-}
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -102,6 +99,8 @@ public void vufMove(ArrayList pos, float x, float y, float z){
         final float mmPerInch = 25.4f;
         final float mmFTCFieldWidth = (12 * 6) * mmPerInch;
         final float mmTargetHeight = (6) * mmPerInch;
+        final float tickPerInch;
+        final float tickPerDeg;
         final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
         OpenGLMatrix lastLocation = null;
         boolean targetVisible = false;
@@ -167,6 +166,7 @@ public void vufMove(ArrayList pos, float x, float y, float z){
         waitForStart();
         //Activates Vuforia.
         targetsRoverRuckus.activate();
+        anvil.vufMove(movInfo, 50, 50, 0);
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
             targetVisible = false;
