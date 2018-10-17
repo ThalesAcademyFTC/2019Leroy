@@ -27,7 +27,7 @@ public class NXPlayer extends OpMode{
             historian = serializer.deserialize();
         }
         catch (Throwable e) {
-            throw new RuntimeException("Everything that could go wrong has.");
+            throw new RuntimeException(e.getMessage());
         }
         runResolved();
     }
