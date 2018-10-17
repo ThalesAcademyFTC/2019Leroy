@@ -79,7 +79,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();
 
+public void vufMove(ArrayList x){
 
+}
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -95,6 +97,7 @@ public class Auton extends LinearOpMode {
         //This code is for the initialization of the Vufori code. This code allows the camera on the robot to find its
         //location on the field using 4 images located half way along the wall of each side.
         final String VUFORIA_KEY = "ATeL/Fn/////AAABmSfhyS8XrEDzmUk23Kkv+MxeFRT/SOQ2r/2NCLavFRh/7bOvcc7bjgoZ6Fhkn0FGCIL9hnojaRNRO+MUlh235crgEE6CtJoQsITOZVaf/cpmRPQPP1WLkDQBo/zZKmjkI68CCpP7VDO8DInfaYOE2koe2fgP65pE9ELovYEcb40HIqN85Me9fP5dIKFrYsvdt1uF1efJaQZYBa0JZ08SZ4QDs1ZPI/ZxdHTJWUhLKmvKOHKIXo6ruc2CJkEizk799cRVoipbJ6bYQ4MntSOARe+Mg1VDwnUwXNQWXgyOOB32mv5h5lHFr5SahcQgkE1XMgfzAqeTKAccX1X/fdNAe+0aDmvAc/w0t8DU4rxCo45j";
+        ArrayList movInfo = new ArrayList();
         final float mmPerInch = 25.4f;
         final float mmFTCFieldWidth = (12 * 6) * mmPerInch;
         final float mmTargetHeight = (6) * mmPerInch;
@@ -185,6 +188,11 @@ public class Auton extends LinearOpMode {
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+                //Adds X,Y, and Z translations to an ArrayList.
+                for (int x = 0; x <= 2; x++) movInfo.add(translation.get(x) / mmPerInch);
+                movInfo.add(rotation.firstAngle);
+                movInfo.add(rotation.secondAngle);
+                movInfo.add(rotation.thirdAngle);
             } else {
                 telemetry.addData("Visible Target", "none");
             }
