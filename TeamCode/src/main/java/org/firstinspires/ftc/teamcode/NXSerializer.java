@@ -18,7 +18,7 @@ import android.os.Environment;
 
 public class NXSerializer {
 
-    private String filename = Environment.getDataDirectory() + "NXHistoryPermanent.nxh";
+    private String filename = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "NXHistoryPermanent.nxh";
     private FileOutputStream ifile;
     private FileInputStream ofile;
 
@@ -35,7 +35,7 @@ public class NXSerializer {
             }
             catch (IOException er) {
                 //Define what needs to happen if the file that didn't exist suddenly does
-                throw new RuntimeException("Logic is literally broken.");
+                throw new RuntimeException(er.getMessage());
             }
         }
     }
