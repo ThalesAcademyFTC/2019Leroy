@@ -79,8 +79,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();
 
-public void vufMove(ArrayList x){
-
+public void vufMove(ArrayList pos, float x, float y, float z){
+//Here we need to get from the pos, or current position, to the new position, x, y, z.
+//
 }
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -89,7 +90,7 @@ public void vufMove(ArrayList x){
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
-        anvil.init(hardwareMap, "HOLONOMIC", telemetry);
+        anvil.init(hardwareMap, "WEST_COAST", telemetry);
         telemetry.addData("Status", "Initialized");
         runtime.reset();
         telemetry.update();
