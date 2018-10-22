@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
+
 /**
  * Created by dcrenshaw on 3/4/18.
  * Clasp is an intelligent teleop designed to interface with Anvil and provide an overhaul to
@@ -18,7 +20,7 @@ public class ClaspTeleop extends OpMode {
     @Override
     public void init() {
         //Chooses the drive train from Anvil
-        anvil.init(hardwareMap, "WEST_COAST", telemetry);
+        anvil.init(hardwareMap, WEST_COAST, telemetry);
         //Below brings in competition specific teleop code, dealing with the scoring mechanism.
         Competition.init(hardwareMap);
     }

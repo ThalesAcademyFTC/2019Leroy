@@ -38,7 +38,13 @@ public class Anvil {
 
     public boolean hs = true;
 
-    public void init (HardwareMap ahwMap, String type, Telemetry telem){
+    public enum drivetrain {
+        HOLONOMIC,
+        TANK,
+        WEST_COAST
+    }
+
+    public void init (HardwareMap ahwMap, drivetrain type, Telemetry telem){
         hwMap = ahwMap;
 
         telemetry = telem;
@@ -64,7 +70,7 @@ public class Anvil {
                 left = new DcMotor[]{motor2};
                 break;
              */
-            case "HOLONOMIC":
+            case HOLONOMIC:
                 //Assign motors
                 clawMotor = hwMap.dcMotor.get("clawMotor");
                 servo1 = hwMap.servo.get("servo1");
@@ -85,7 +91,7 @@ public class Anvil {
                 left = new DcMotor[]{motor1, motor3};
                 hs = false;
                 break;
-            case "TANK":
+            case TANK:
                 motor1 = hwMap.dcMotor.get("motor1");
                 motor2 = hwMap.dcMotor.get("motor2");
                 motor1.setDirection(DcMotor.Direction.REVERSE);
@@ -94,7 +100,7 @@ public class Anvil {
                 right = new DcMotor[]{motor1};
                 left = new DcMotor[]{motor2};
                 break;
-            case "WEST_COAST":
+            case WEST_COAST:
                 motor1 = hwMap.dcMotor.get("motor1");
                 motor2 = hwMap.dcMotor.get("motor2");
                 motor3 = hwMap.dcMotor.get("motor3");

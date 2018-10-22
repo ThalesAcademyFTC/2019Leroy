@@ -37,6 +37,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
+
 /**
  * This file provides basic Telop driving for a Pushbot robot.
  * The code is structured as an Iterative OpMode
@@ -65,7 +67,7 @@ public class CustomClaspy extends OpMode {
      */
     @Override
     public void init() {
-        anvil.init(hardwareMap, "WEST_COAST", telemetry);
+        anvil.init(hardwareMap, WEST_COAST, telemetry);
     }
 
     /*

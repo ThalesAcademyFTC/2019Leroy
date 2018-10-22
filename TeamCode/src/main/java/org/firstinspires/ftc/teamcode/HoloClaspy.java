@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.HOLONOMIC;
+
 /**
  * This file provides basic Telop driving for a Pushbot robot.
  * The code is structured as an Iterative OpMode
@@ -28,7 +30,7 @@ public class HoloClaspy extends OpMode {
     @Override
     public void init() {
     //Choosing the drive train from Anvil.
-        anvil.init(hardwareMap, "HOLONOMIC", telemetry);
+        anvil.init(hardwareMap, HOLONOMIC, telemetry);
     }
 
     @Override
