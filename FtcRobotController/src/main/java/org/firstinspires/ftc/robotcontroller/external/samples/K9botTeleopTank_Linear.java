@@ -99,7 +99,6 @@ public class K9botTeleopTank_Linear extends LinearOpMode {
                 clawPosition += CLAW_SPEED;
             else if (gamepad1.b)
                 clawPosition -= CLAW_SPEED;
-
             // Move both servos to new position.
             armPosition  = Range.clip(armPosition, robot.ARM_MIN_RANGE, robot.ARM_MAX_RANGE);
             robot.arm.setPosition(armPosition);

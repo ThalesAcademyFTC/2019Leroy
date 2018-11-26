@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -25,4 +26,9 @@ public class Competition {
     }
     public static void Orient() {}
 
+    public static void Raise() {
+        DcMotor a = hardwareMap.dcMotor.get("hangingArmMotor");
+        a.setPower(1.);
+
+    }
 }
