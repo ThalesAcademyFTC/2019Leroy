@@ -41,7 +41,7 @@ public class Anvil {
     public enum drivetrain {
         HOLONOMIC,
         TANK,
-        WEST_COAST
+        WEST_COAST,
     }
 
     public void init (HardwareMap ahwMap, drivetrain type, Telemetry telem){
@@ -156,7 +156,13 @@ public class Anvil {
         for (DcMotor x:forward)
             x.setPower(-pace);
     }
-
+    public void clawMov(double pace){
+        clawMotor.setPower(pace);
+    }
+    public void servoMov(double pace, double pace2){
+        servo1.setPosition(pace);
+        servo2.setPosition(pace2);
+    }
     public void rest() {for (DcMotor x:forward) x.setPower(0);}
 
     //Experimental function to turn while moving forward. Increases Maneuverability of robot.

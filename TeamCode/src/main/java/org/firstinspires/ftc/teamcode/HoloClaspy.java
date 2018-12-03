@@ -38,8 +38,9 @@ public class HoloClaspy extends OpMode {
         //Basic Telemetry used for testing with controller
         telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
-
+        anvil.jewelServo.setPosition(0);
         //Handle buttons first
+        //Gamepad 1
         if (gamepad1.a) {
             //Unused button
         } else if (gamepad1.b) {
@@ -66,5 +67,20 @@ public class HoloClaspy extends OpMode {
                     anvil.moveBackward(gamepad1.left_stick_y);
                 }
             }
+            //Gamepad 2
+        if (gamepad2.atRest()){
+            anvil.clawMov(0);
+        } else if (gamepad2.left_stick_y != 0){
+            anvil.clawMov(-gamepad2.left_stick_y);
+        }
+        if (gamepad2.a){
+            anvil.servoMov(0.15, 0.85);
+        } else if (gamepad2.b){
+            anvil.servoMov(0, 1);
+        } else if (gamepad2.x){
+            anvil.servoMov(0.55, 0.45);
+        } else if (gamepad2.y){
+            anvil.servoMov(0.3, 0.9);
+        }
         }
     }

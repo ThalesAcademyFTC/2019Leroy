@@ -92,8 +92,8 @@ public class HoloTeleop extends OpMode {
     public void start() {
         //-------------------------------------------------------------------------------------
         //Variable defining
-   robot.servo1.setPosition(0.5);
-    robot.servo2.setPosition(0.5);
+  // robot.servo1.setPosition(0.5);
+  //  robot.servo2.setPosition(0.5);
 
     }
 
@@ -109,7 +109,7 @@ public class HoloTeleop extends OpMode {
     public void loop() {
     /*---------IF GOING REVERSE, CHANGE ALL 1s to -1, and -1 to 1-----------*/
 
-        telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
+       telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
         telemetry.addData("L_JoystickX", gamepad1.right_stick_x);
         telemetry.addData("L_JoystickY", gamepad1.right_stick_y);
@@ -141,6 +141,10 @@ public class HoloTeleop extends OpMode {
             robot.motor3.setPower(-motorPower);  //cw
             robot.motor4.setPower(motorPower); //ccw
         }
+        robot.motor1.setPower(gamepad1.left_stick_y);
+        robot.motor2.setPower(gamepad1.left_stick_y);
+        robot.motor3.setPower(gamepad1.right_stick_y);
+        robot.motor4.setPower(gamepad1.right_stick_y);
         //stops movement when joysticks are at 0
             if (gamepad1.left_stick_y == 0 & gamepad2.right_stick_y == 0) {
             robot.motor1.setPower(0);
@@ -215,7 +219,7 @@ public class HoloTeleop extends OpMode {
             armIteratesFor++;
              */
         }
-        if (gamepad2.left_stick_y == 1) {
+         if (gamepad2.left_stick_y == 1) {
             robot.clawMotor.setPower(-1);
         }
         if (gamepad2.left_stick_y == 0) {
