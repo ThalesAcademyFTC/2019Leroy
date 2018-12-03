@@ -42,6 +42,7 @@ public class Anvil {
         HOLONOMIC,
         TANK,
         WEST_COAST,
+        MECHANUM
     }
 
     public void init (HardwareMap ahwMap, drivetrain type, Telemetry telem){
@@ -112,6 +113,20 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor1, motor4};
                 left = new DcMotor[]{motor2, motor3};
+                break;
+            case MECHANUM:
+                //Map all motors to proper variables.
+                motor1 = hwMap.dcMotor.get("motor1");
+                motor2 = hwMap.dcMotor.get("motor2");
+                motor3 = hwMap.dcMotor.get("motor3");
+                motor4 = hwMap.dcMotor.get("motor4");
+                motor1.setDirection(DcMotor.Direction.FORWARD);
+                motor2.setDirection(DcMotor.Direction.FORWARD);
+                motor3.setDirection(DcMotor.Direction.FORWARD);
+                motor4.setDirection(DcMotor.Direction.FORWARD);
+                forward = new DcMotor[]{motor1, motor2, motor3, motor4};
+                right = new DcMotor[]{motor1, motor2};
+                left = new DcMotor[]{motor3, motor4};
                 break;
             default:
                 telemetry.addLine("Invalid type " + type + " passed to Anvil's init function. Nothing has been set up.");
