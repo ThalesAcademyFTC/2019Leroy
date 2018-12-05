@@ -74,12 +74,23 @@ public class Anvil {
              */
 
             case OMNIDRIVE:
-                //assignment of motors
+                //Weird drive train, only two wheels move for the robot to go forward. Will need to
+                // consider this when programming the robot to move.
                 motor1 = hwMap.dcMotor.get("motor1");
                 motor2 = hwMap.dcMotor.get("motor1");
                 motor3 = hwMap.dcMotor.get("motor3");
                 motor4 = hwMap.dcMotor.get("motor4");
-                clawMotor
+                clawMotor = hwMap.dcMotor.get("clawMotor");
+                servo1 = hwMap.servo.get("servo1");
+                motor1.setDirection(DcMotor.Direction.FORWARD);
+                motor2.setDirection(DcMotor.Direction.REVERSE);
+                motor3.setDirection(DcMotor.Direction.FORWARD);
+                motor3.setDirection(DcMotor.Direction.REVERSE);
+                forward = new DcMotor[]{motor1, motor2, motor3, motor4};
+                right = new DcMotor[]{motor1, motor3};
+                left = new DcMotor[]{motor2, motor4};
+                break;
+
 
             case HOLONOMIC:
                 //Assign motors
