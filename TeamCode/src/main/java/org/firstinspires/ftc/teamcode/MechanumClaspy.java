@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.MECHANUM;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 
 /**
@@ -53,8 +54,8 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Template", group = "Pushbot")
-@Disabled
+@TeleOp(name="Freddy", group = "Pushbot")
+//@Disabled
 public class MechanumClaspy extends OpMode {
 
     /* Declare OpMode members. */
@@ -66,7 +67,7 @@ public class MechanumClaspy extends OpMode {
      */
     @Override
     public void init() {
-        anvil.init(hardwareMap, WEST_COAST, telemetry);
+        anvil.init(hardwareMap, MECHANUM, telemetry);
     }
 
     /*
@@ -109,17 +110,20 @@ public class MechanumClaspy extends OpMode {
             //Unused button
         } else if (gamepad1.y) {
             //Unused button
-        } else if (gamepad1.dpad_left) {
-            //Unused button
-        } else if (gamepad1.dpad_down) {
-            //Unused button
-        }
-        //Handle controls. Below is the main drive train functions.
+        } else if (gamepad1.dpad_left) {}
         if (gamepad1.atRest()) {
+            //Used to ensure that the robot does not move while the controller is at rest.
             anvil.rest();
         } else {
-            if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+            //Moves the robot to the left if the right stick is moved to the left.
+            //Since left is the opposite of right, the right stick receiving a negative value makes the robot turn right.
+            if (Math.abs(gamepad1.right_stick_x) > 0) {
                 anvil.turnLeft(gamepad1.right_stick_x);
+            }
+            //Below decides whether the left stick x value is farther from the origin than the y value.
+            //This decides whether the robot needs to move sideways or forward/backward.
+            if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+                anvil.holoMoveLeft(gamepad1.left_stick_x);
             } else {
                 anvil.moveBackward(gamepad1.left_stick_y);
             }

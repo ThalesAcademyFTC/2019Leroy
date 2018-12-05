@@ -71,6 +71,8 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2};
                 right = new DcMotor[]{motor1};
                 left = new DcMotor[]{motor2};
+                // for drivetrains that can shift left and right, a movRight and movLeft array must be added
+                //that will implement these functions
                 break;
              */
 
@@ -149,8 +151,10 @@ public class Anvil {
                 motor3.setDirection(DcMotor.Direction.FORWARD);
                 motor4.setDirection(DcMotor.Direction.FORWARD);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
-                right = new DcMotor[]{motor1, motor2};
-                left = new DcMotor[]{motor3, motor4};
+                right = new DcMotor[]{motor1, motor3};
+                left = new DcMotor[]{motor2, motor4};
+                movRight = new DcMotor[]{motor1, motor2};
+                movLeft = new DcMotor[]{motor3, motor4};
                 break;
             case SWERVE:
                 motor1 = hwMap.dcMotor.get("motor1");
@@ -209,8 +213,12 @@ public class Anvil {
         for (DcMotor x:forward)
             x.setPower(-pace);
     }
-    public void clawMov(double pace){
-        clawMotor.setPower(pace);
+    public void clawMov(Gamepad gamepad) {
+        if (gamepad.left_trigger > 0){
+            clawMotor.setPower(gamepad.left_trigger);
+        } else if (gamepad.right_trigger > 0){
+            clawMotor.setPower(-gamepad.right_trigger);
+        }
     }
     public void servoMov(double pace, double pace2){
         servo1.setPosition(pace);
@@ -234,6 +242,7 @@ public class Anvil {
         for (DcMotor x:movLeft) x.setPower(-pace);
         for (DcMotor x:movRight) x.setPower(pace);
     }
+
     //Experimental Autonomous Code that locates the robot on the field using 2 distance sensors at 90 degree angles.
     //Not needed any more because vuforia navigation targets can be used more efficiently.
     public void distDeg(double initx, double inity, double posX, double posY) {
