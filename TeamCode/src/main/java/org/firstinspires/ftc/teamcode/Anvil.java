@@ -21,7 +21,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class Anvil {
     //Define servo and motor variables
-    public DcMotor motor1, motor2, motor3, motor4;
+    public DcMotor motor1, motor2, motor3, motor4, motor5;
     public DcMotor clawMotor;
     public Servo servo1, servo2;
     public Servo jewelServo;
@@ -44,6 +44,7 @@ public class Anvil {
         WEST_COAST,
         MECHANUM,
         OMNIDRIVE,
+        SWERVE
     }
 
     public void init (HardwareMap ahwMap, drivetrain type, Telemetry telem){
@@ -138,6 +139,20 @@ public class Anvil {
                 right = new DcMotor[]{motor1, motor2};
                 left = new DcMotor[]{motor3, motor4};
                 break;
+            case SWERVE:
+                motor1 = hwMap.dcMotor.get("motor1");
+                motor2 = hwMap.dcMotor.get("motor2");
+                motor3 = hwMap.dcMotor.get("motor3");
+                motor4 = hwMap.dcMotor.get("motor4");
+                motor5 = hwMap.dcMotor.get("motor5");
+                motor1.setDirection(DcMotor.Direction.FORWARD);
+                motor2.setDirection(DcMotor.Direction.FORWARD);
+                motor3.setDirection(DcMotor.Direction.FORWARD);
+                motor4.setDirection(DcMotor.Direction.FORWARD);
+                motor5.setDirection(DcMotor.Direction.FORWARD);
+                forward = new DcMotor[]{motor1, motor2, motor3, motor4};
+                right = new DcMotor [] {motor5};
+                left = new DcMotor[] {motor5};
             default:
                 telemetry.addLine("Invalid type " + type + " passed to Anvil's init function. Nothing has been set up.");
                 break;
