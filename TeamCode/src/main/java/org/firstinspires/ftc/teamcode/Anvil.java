@@ -42,7 +42,8 @@ public class Anvil {
         HOLONOMIC,
         TANK,
         WEST_COAST,
-        MECHANUM
+        MECHANUM,
+        OMNIDRIVE,
     }
 
     public void init (HardwareMap ahwMap, drivetrain type, Telemetry telem){
@@ -71,6 +72,15 @@ public class Anvil {
                 left = new DcMotor[]{motor2};
                 break;
              */
+
+            case OMNIDRIVE:
+                //assignment of motors
+                motor1 = hwMap.dcMotor.get("motor1");
+                motor2 = hwMap.dcMotor.get("motor1");
+                motor3 = hwMap.dcMotor.get("motor3");
+                motor4 = hwMap.dcMotor.get("motor4");
+                clawMotor
+
             case HOLONOMIC:
                 //Assign motors
                 clawMotor = hwMap.dcMotor.get("clawMotor");
