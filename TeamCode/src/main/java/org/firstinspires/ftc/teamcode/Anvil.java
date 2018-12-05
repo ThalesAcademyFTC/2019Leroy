@@ -34,7 +34,7 @@ public class Anvil {
 
     private double prevailingSpeed = 0.5;
 
-    public DcMotor[] forward, right, left;
+    public DcMotor[] forward, right, left, movLeft, movRight;
 
     public boolean hs = true;
 
@@ -90,6 +90,8 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor2, motor4};
                 left = new DcMotor[]{motor1, motor3};
+                movLeft = new DcMotor[]{motor2, motor3};
+                movRight = new DcMotor[]{motor1, motor4};
                 hs = false;
                 break;
             case TANK:
@@ -189,16 +191,12 @@ public class Anvil {
 
     //Holonomic specific movements
     public void holoMoveRight(double pace) {
-        motor1.setPower(-pace);
-        motor2.setPower(pace);
-        motor3.setPower(pace);
-        motor4.setPower(-pace);
+        for (DcMotor x:movLeft) x.setPower(pace);
+        for (DcMotor x:movRight) x.setPower(-pace);
     }
     public void holoMoveLeft(double pace) {
-        motor1.setPower(pace);
-        motor2.setPower(-pace);
-        motor3.setPower(-pace);
-        motor4.setPower(pace);
+        for (DcMotor x:movLeft) x.setPower(-pace);
+        for (DcMotor x:movRight) x.setPower(pace);
     }
     //Experimental Autonomous Code that locates the robot on the field using 2 distance sensors at 90 degree angles.
     //Not needed any more because vuforia navigation targets can be used more efficiently.
