@@ -18,6 +18,13 @@ public class ClaspTeleop extends OpMode {
     private Anvil anvil = new Anvil();
 
     @Override
+    public void start() {
+        if (gamepad1.dpad_left) {
+            //Assign and start a thread for Dev Mode
+        }
+    }
+
+    @Override
     public void init() {
         //Chooses the drive train from Anvil
         anvil.init(hardwareMap, WEST_COAST, telemetry);
