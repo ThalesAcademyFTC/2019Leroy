@@ -34,7 +34,7 @@ public class Anvil {
 
     private double prevailingSpeed = 0.5;
 
-    public DcMotor[] forward, right, left, movLeft, movRight;
+    public DcMotor[] forward, right, left, special;
 
     public boolean hs = true;
 
@@ -71,8 +71,9 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2};
                 right = new DcMotor[]{motor1};
                 left = new DcMotor[]{motor2};
-                // for drivetrains that can shift left and right, a movRight and movLeft array must be added
-                //that will implement these functions
+                //There is also a "special" motor array which is used for any additional
+                //nonsense you want to do with the robot. Right now, it's just used for 
+                //holonomic and mechanum special movements.
                 break;
              */
 
@@ -114,8 +115,7 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor2, motor4};
                 left = new DcMotor[]{motor1, motor3};
-                movLeft = new DcMotor[]{motor2, motor3};
-                movRight = new DcMotor[]{motor1, motor4};
+                special = new DcMotor[]{motor1, motor4};
                 hs = false;
                 break;
             case TANK:
@@ -153,8 +153,7 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor1, motor3};
                 left = new DcMotor[]{motor2, motor4};
-                movRight = new DcMotor[]{motor1, motor2};
-                movLeft = new DcMotor[]{motor3, motor4};
+                special = new DcMotor[]{motor1, motor2};
                 break;
             case SWERVE:
                 motor1 = hwMap.dcMotor.get("motor1");
@@ -235,12 +234,12 @@ public class Anvil {
 
     //Holonomic specific movements
     public void holoMoveRight(double pace) {
-        for (DcMotor x:movLeft) x.setPower(pace);
-        for (DcMotor x:movRight) x.setPower(-pace);
+        moveForward(pace);
+        for (DcMotor x:special) x.setPower(-pace);
     }
     public void holoMoveLeft(double pace) {
-        for (DcMotor x:movLeft) x.setPower(-pace);
-        for (DcMotor x:movRight) x.setPower(pace);
+        moveBackward(pace);
+        for (DcMotor x:special) x.setPower(pace);
     }
 
     //Experimental Autonomous Code that locates the robot on the field using 2 distance sensors at 90 degree angles.
