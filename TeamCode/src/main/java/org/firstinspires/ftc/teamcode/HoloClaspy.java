@@ -49,14 +49,18 @@ public class HoloClaspy extends OpMode {
         } else if (gamepad1.y) {
             anvil.servoMov(0.3, 0.9);
         }
-        if (!gamepad1.atRest()){
-            anvil.clawMov(gamepad1);
-        }
             if (gamepad1.atRest()) {
 
             //Used to ensure that the robot does not move while the controller is at rest.
                 anvil.rest();
             } else {
+                if (gamepad1.right_trigger > 0){
+                    anvil.customMov(anvil.clawMotor, gamepad1.right_trigger);
+                } else if (gamepad1.left_trigger > 0){
+                    anvil.customMov(anvil.clawMotor, -gamepad1.left_trigger);
+                } else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0){
+                    anvil.customMov(anvil.clawMotor,0);
+                }
                 //Moves the robot to the left if the right stick is moved to the left.
                 //Since left is the opposite of right, the right stick receiving a negative value makes the robot turn right.
                 if (Math.abs(gamepad1.right_stick_x) > 0) {

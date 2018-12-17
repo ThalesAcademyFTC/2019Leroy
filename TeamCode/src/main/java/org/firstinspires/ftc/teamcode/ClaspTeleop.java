@@ -41,14 +41,25 @@ public class ClaspTeleop extends OpMode {
         //Uses Buttons
         if (gamepad1.a) {
            //Unused Button
-        } else if (gamepad1.left_trigger != .0f) {
-            //Possibly used for scoring mechanism.
+        } else if (gamepad1.b){
+
+        } else if (gamepad1.x){
+
+        } else if (gamepad1.y){
+
         }
         //Deals with controls for drive train.
         if (gamepad1.atRest()) {
             //Ensures that if the gamepad is at rest, then the robot does not move.
             anvil.rest();
         } else {
+            if (gamepad1.right_trigger > 0){
+                anvil.customMov(anvil.clawMotor, gamepad1.right_trigger);
+            } else if (gamepad1.left_trigger > 0){
+                anvil.customMov(anvil.clawMotor, -gamepad1.left_trigger);
+            } else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0){
+                anvil.customMov(anvil.clawMotor,0);
+            }
             //Decides whether the left stick x or the left stick y is farther from the origin
             //This decides whether the robot should move sideways or forward/backward.
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {

@@ -62,6 +62,7 @@ public class MechanumClaspy extends OpMode {
     //OldHWDrive robot = new OldHWDrive(); // use the class created to define a Pushbot's hardware
     //public Anvil anvil;
     Anvil anvil = new Anvil();
+    boolean aSwap = true;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -102,8 +103,12 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
         //Handle buttons first
-        if (gamepad1.a) {
-            //Unused button
+        if (gamepad1.a && aSwap) {
+            anvil.cServo(anvil.cageServo, 0);
+            aSwap = false;
+        } else if (gamepad1.a && !aSwap){
+            anvil.cServo(anvil.cageServo, 0.5);
+            aSwap = true;
         } else if (gamepad1.b) {
             //Unused button
         } else if (gamepad1.x) {
@@ -115,6 +120,13 @@ public class MechanumClaspy extends OpMode {
             //Used to ensure that the robot does not move while the controller is at rest.
             anvil.rest();
         } else {
+            if (gamepad1.right_trigger > 0){
+                anvil.customMov(anvil.armMotor, gamepad1.right_trigger/2);
+            } else if (gamepad1.left_trigger > 0){
+                anvil.customMov(anvil.armMotor, -gamepad1.left_trigger/2);
+            } else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0){
+                anvil.customMov(anvil.armMotor,0);
+            }
             //Moves the robot to the left if the right stick is moved to the left.
             //Since left is the opposite of right, the right stick receiving a negative value makes the robot turn right.
             if (Math.abs(gamepad1.right_stick_x) > 0) {

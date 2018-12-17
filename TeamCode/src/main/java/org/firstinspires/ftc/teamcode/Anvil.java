@@ -21,10 +21,10 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class Anvil {
     //Define servo and motor variables
-    public DcMotor motor1, motor2, motor3, motor4, motor5;
+    public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, armMotor;
     public DcMotor clawMotor;
     public Servo servo1, servo2;
-    public Servo jewelServo;
+    public Servo jewelServo, cageServo;
     //Reference to mapped servo/motor controller
     private HardwareMap hwMap;
 
@@ -34,7 +34,7 @@ public class Anvil {
 
     private double prevailingSpeed = 0.5;
 
-    public DcMotor[] forward, right, left, special;
+    public DcMotor[] forward, right, left, special, unique;
 
     public boolean hs = true;
 
@@ -116,6 +116,7 @@ public class Anvil {
                 right = new DcMotor[]{motor2, motor4};
                 left = new DcMotor[]{motor1, motor3};
                 special = new DcMotor[]{motor1, motor4};
+                unique = new DcMotor[]{motor2, motor3};
                 hs = false;
                 break;
             case TANK:
@@ -146,14 +147,21 @@ public class Anvil {
                 motor2 = hwMap.dcMotor.get("motor2");
                 motor3 = hwMap.dcMotor.get("motor3");
                 motor4 = hwMap.dcMotor.get("motor4");
-                motor1.setDirection(DcMotor.Direction.FORWARD);
+                slideMotor = hwMap.dcMotor.get("slideMotor");
+                armMotor = hwMap.dcMotor.get("armMotor");
+                servo1 = hwMap.servo.get("servo1");
+                servo2 = hwMap.servo.get("servo2");
+                cageServo = hwMap.servo.get("cageServo");
+                motor1.setDirection(DcMotor.Direction.REVERSE);
                 motor2.setDirection(DcMotor.Direction.FORWARD);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
-                motor4.setDirection(DcMotor.Direction.FORWARD);
+                motor4.setDirection(DcMotor.Direction.REVERSE);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor1, motor3};
                 left = new DcMotor[]{motor2, motor4};
                 special = new DcMotor[]{motor1, motor2};
+                unique = new DcMotor[]{motor3, motor4};
+                hs = false;
                 break;
             case SWERVE:
                 motor1 = hwMap.dcMotor.get("motor1");
@@ -169,6 +177,7 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor [] {motor5};
                 left = new DcMotor[] {motor5};
+                break;
             default:
                 telemetry.addLine("Invalid type " + type + " passed to Anvil's init function. Nothing has been set up.");
                 break;
@@ -212,18 +221,17 @@ public class Anvil {
         for (DcMotor x:forward)
             x.setPower(-pace);
     }
-    public void clawMov(Gamepad gamepad) {
-        if (gamepad.left_trigger > 0){
-            clawMotor.setPower(gamepad.left_trigger);
-        } else if (gamepad.right_trigger > 0){
-            clawMotor.setPower(-gamepad.right_trigger);
-        }
+    public void customMov(DcMotor motor, double powa) {
+       motor.setPower(powa);
     }
     public void servoMov(double pace, double pace2){
         servo1.setPosition(pace);
         servo2.setPosition(pace2);
     }
-    public void rest() {for (DcMotor x:forward) x.setPower(0);}
+    public void cServo(Servo servo, double pace){
+        servo.setPosition(pace);
+    }
+    public void rest() {for (DcMotor x:forward) x.setPower(0); }
 
     //Experimental function to turn while moving forward. Increases Maneuverability of robot.
     //ctx = controller x
@@ -234,11 +242,11 @@ public class Anvil {
 
     //Holonomic specific movements
     public void holoMoveRight(double pace) {
-        moveForward(pace);
+        for (DcMotor x: unique) x.setPower(pace);
         for (DcMotor x:special) x.setPower(-pace);
     }
     public void holoMoveLeft(double pace) {
-        moveBackward(pace);
+        for (DcMotor x: unique) x.setPower(-pace);
         for (DcMotor x:special) x.setPower(pace);
     }
 
