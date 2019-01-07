@@ -21,7 +21,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class Anvil {
     //Define servo and motor variables
-    public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, armMotor;
+    public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, slideMotor2, armMotor, extMotor;
     public DcMotor clawMotor;
     public Servo servo1, servo2;
     public Servo jewelServo, cageServo;
@@ -133,6 +133,10 @@ public class Anvil {
                 motor2 = hwMap.dcMotor.get("motor2");
                 motor3 = hwMap.dcMotor.get("motor3");
                 motor4 = hwMap.dcMotor.get("motor4");
+                slideMotor = hwMap.dcMotor.get("slideMotor");
+                slideMotor2 = hwMap.dcMotor.get("slideMotor2");
+                extMotor = hwMap.dcMotor.get("extMotor");
+                armMotor = hwMap.dcMotor.get("armMotor");
                 motor1.setDirection(DcMotor.Direction.REVERSE);
                 motor2.setDirection(DcMotor.Direction.FORWARD);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
@@ -159,8 +163,8 @@ public class Anvil {
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor1, motor3};
                 left = new DcMotor[]{motor2, motor4};
-                special = new DcMotor[]{motor1, motor2};
-                unique = new DcMotor[]{motor3, motor4};
+                special = new DcMotor[]{motor1, motor4};
+                unique = new DcMotor[]{motor3, motor2};
                 hs = false;
                 break;
             case SWERVE:

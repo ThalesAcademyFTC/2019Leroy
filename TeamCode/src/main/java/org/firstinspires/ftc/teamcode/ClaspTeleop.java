@@ -53,12 +53,25 @@ public class ClaspTeleop extends OpMode {
             //Ensures that if the gamepad is at rest, then the robot does not move.
             anvil.rest();
         } else {
+            //Controls the ability to extend the arm, using the triggers.
             if (gamepad1.right_trigger > 0){
-                anvil.customMov(anvil.clawMotor, gamepad1.right_trigger);
+                anvil.customMov(anvil.extMotor, gamepad1.right_trigger);
             } else if (gamepad1.left_trigger > 0){
-                anvil.customMov(anvil.clawMotor, -gamepad1.left_trigger);
+                anvil.customMov(anvil.extMotor, -gamepad1.left_trigger);
             } else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0){
-                anvil.customMov(anvil.clawMotor,0);
+                anvil.customMov(anvil.extMotor,0);
+            }
+            //controls the lift of the robot, to bring it off the ground
+            //Doesnt work, for some reason, says the Dpad is being pushed but no response with the motors.
+            if (gamepad1.dpad_up){
+                anvil.customMov(anvil.slideMotor, 0.5);
+                anvil.customMov(anvil.slideMotor2, -0.5);
+            } else if (gamepad1.dpad_down){
+                anvil.customMov(anvil.slideMotor, -0.5);
+                anvil.customMov(anvil.slideMotor2, 0.5);
+            } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
+                anvil.customMov(anvil.slideMotor, 0);
+                anvil.customMov(anvil.slideMotor2, 0);
             }
             //Decides whether the left stick x or the left stick y is farther from the origin
             //This decides whether the robot should move sideways or forward/backward.

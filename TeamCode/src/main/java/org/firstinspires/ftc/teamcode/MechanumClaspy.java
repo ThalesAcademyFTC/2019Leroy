@@ -109,13 +109,21 @@ public class MechanumClaspy extends OpMode {
         } else if (gamepad1.a && !aSwap){
             anvil.cServo(anvil.cageServo, 0.5);
             aSwap = true;
-        } else if (gamepad1.b) {
-            //Unused button
-        } else if (gamepad1.x) {
-            //Unused button
-        } else if (gamepad1.y) {
-            //Unused button
-        } else if (gamepad1.dpad_left) {}
+        }
+        if (gamepad1.b) {
+            anvil.servoMov(0.5, 0.5);
+        } else if (gamepad1.x){
+            anvil.servoMov(0.1, 0.9);
+        } else if (gamepad1.y){
+            anvil.servoMov(0.9, 0.1);
+        }
+        if (gamepad1.dpad_up){
+            anvil.customMov(anvil.slideMotor, 0.5);
+        } else if (gamepad1.dpad_down){
+            anvil.customMov(anvil.slideMotor, -0.5);
+        } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
+            anvil.customMov(anvil.slideMotor, 0);
+        }
         if (gamepad1.atRest()) {
             //Used to ensure that the robot does not move while the controller is at rest.
             anvil.rest();
