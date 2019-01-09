@@ -103,12 +103,10 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
         //Handle buttons first
-        if (gamepad1.a && aSwap) {
-            anvil.cServo(anvil.cageServo, 0);
-            aSwap = false;
-        } else if (gamepad1.a && !aSwap){
-            anvil.cServo(anvil.cageServo, 0.5);
-            aSwap = true;
+        if (gamepad1.a) {
+            if (aSwap) anvil.cServo(anvil.cageServo, 0);
+            else anvil.cServo(anvil.cageServo, 0.5);
+            aSwap ^= true;
         }
         if (gamepad1.b) {
             anvil.servoMov(0.5, 0.5);
@@ -117,17 +115,12 @@ public class MechanumClaspy extends OpMode {
         } else if (gamepad1.y){
             anvil.servoMov(0.9, 0.1);
         }
-        if (gamepad1.dpad_up){
-            anvil.customMov(anvil.slideMotor, 0.5);
-        } else if (gamepad1.dpad_down){
-            anvil.customMov(anvil.slideMotor, -0.5);
-        } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
-            anvil.customMov(anvil.slideMotor, 0);
-        }
-        if (gamepad1.atRest()) {
-            //Used to ensure that the robot does not move while the controller is at rest.
-            anvil.rest();
-        } else {
+        if (gamepad1.dpad_up) anvil.customMov(anvil.slideMotor, 0.5);
+        else if (gamepad1.dpad_down) anvil.customMov(anvil.slideMotor, -0.5);
+        else if (!gamepad1.dpad_up && !gamepad1.dpad_down) anvil.customMov(anvil.slideMotor, 0);
+
+        if (gamepad1.atRest()) anvil.rest();
+        else {
             if (gamepad1.right_trigger > 0){
                 anvil.customMov(anvil.armMotor, gamepad1.right_trigger/2);
             } else if (gamepad1.left_trigger > 0){

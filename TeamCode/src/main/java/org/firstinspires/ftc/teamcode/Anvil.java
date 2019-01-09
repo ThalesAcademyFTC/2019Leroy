@@ -232,10 +232,8 @@ public class Anvil {
         servo1.setPosition(pace);
         servo2.setPosition(pace2);
     }
-    public void cServo(Servo servo, double pace){
-        servo.setPosition(pace);
-    }
-    public void rest() {for (DcMotor x:forward) x.setPower(0); }
+    public void cServo(Servo servo, double pace) {servo.setPosition(pace);}
+    public void rest() {for (DcMotor x:forward) x.setPower(0);}
 
     //Experimental function to turn while moving forward. Increases Maneuverability of robot.
     //ctx = controller x
