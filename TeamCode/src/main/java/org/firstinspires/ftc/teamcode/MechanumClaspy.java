@@ -100,8 +100,10 @@ public class MechanumClaspy extends OpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("R_JoystickX", gamepad1.left_stick_x);
-        telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
+        telemetry.addData("L_JoystickX", gamepad1.left_stick_x);
+        telemetry.addData("L_JoystickY", gamepad1.left_stick_y);
+        telemetry.addData("Left Trigger", gamepad1.left_trigger);
+        telemetry.addData("Right Trigger", gamepad1.right_trigger);
         //Handle buttons first
         if (gamepad1.a) {
             if (aSwap) anvil.cServo(anvil.cageServo, 0);
