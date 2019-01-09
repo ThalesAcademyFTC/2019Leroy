@@ -302,6 +302,11 @@ public class Anvil {
             w.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         }
+    public void encMove(DcMotor motor, int encoderTicks){
+            motor.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            motor.setTargetPosition(encoderTicks);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
 
     private void sleep(long milliseconds) {
         //Ripped right from the FTC OpMode specifications
