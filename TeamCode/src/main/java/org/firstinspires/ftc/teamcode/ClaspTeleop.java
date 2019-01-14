@@ -48,6 +48,16 @@ public class ClaspTeleop extends OpMode {
         } else if (gamepad1.y){
 
         }
+        if (gamepad1.dpad_up){
+            anvil.customMov(anvil.slideMotor, 0.5);
+            anvil.customMov(anvil.slideMotor2, -0.5);
+        } else if (gamepad1.dpad_down){
+            anvil.customMov(anvil.slideMotor, -0.5);
+            anvil.customMov(anvil.slideMotor2, 0.5);
+        } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
+            anvil.customMov(anvil.slideMotor, 0);
+            anvil.customMov(anvil.slideMotor2, 0);
+        }
         //Deals with controls for drive train.
         if (gamepad1.atRest()) {
             //Ensures that if the gamepad is at rest, then the robot does not move.
@@ -63,16 +73,6 @@ public class ClaspTeleop extends OpMode {
             }
             //controls the lift of the robot, to bring it off the ground
             //Doesnt work, for some reason, says the Dpad is being pushed but no response with the motors.
-            if (gamepad1.dpad_up){
-                anvil.customMov(anvil.slideMotor, 0.5);
-                anvil.customMov(anvil.slideMotor2, -0.5);
-            } else if (gamepad1.dpad_down){
-                anvil.customMov(anvil.slideMotor, -0.5);
-                anvil.customMov(anvil.slideMotor2, 0.5);
-            } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
-                anvil.customMov(anvil.slideMotor, 0);
-                anvil.customMov(anvil.slideMotor2, 0);
-            }
             //Decides whether the left stick x or the left stick y is farther from the origin
             //This decides whether the robot should move sideways or forward/backward.
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
