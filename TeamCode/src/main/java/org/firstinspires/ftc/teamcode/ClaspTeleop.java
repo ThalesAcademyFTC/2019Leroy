@@ -16,12 +16,9 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 public class ClaspTeleop extends OpMode {
     //Initiates the Anvil object.
     private Anvil anvil = new Anvil();
-
+    boolean aSwap = true;
     @Override
     public void start() {
-        if (gamepad1.dpad_left) {
-            //Assign and start a thread for Dev Mode
-        }
     }
 
     @Override
@@ -40,14 +37,11 @@ public class ClaspTeleop extends OpMode {
 
         //Uses Buttons
         if (gamepad1.a) {
-           //Unused Button
-        } else if (gamepad1.b){
-
-        } else if (gamepad1.x){
-
-        } else if (gamepad1.y){
-
+            if (aSwap) anvil.customMov(anvil.armMotor, 1);
+            else anvil.customMov(anvil.armMotor, 0);
+            aSwap ^= true;
         }
+
         if (gamepad1.dpad_up){
             anvil.customMov(anvil.slideMotor, 0.5);
             anvil.customMov(anvil.slideMotor2, -0.5);
