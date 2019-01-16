@@ -35,6 +35,7 @@ public class Anvil {
     private double prevailingSpeed = 0.5;
 
     public DcMotor[] forward, right, left, special, unique;
+    private DcMotor competition[] = {extMotor};
 
     public boolean hs = true;
 

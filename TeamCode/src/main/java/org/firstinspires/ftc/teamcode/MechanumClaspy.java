@@ -102,32 +102,32 @@ public class MechanumClaspy extends OpMode {
     public void loop() {
         telemetry.addData("L_JoystickX", gamepad1.left_stick_x);
         telemetry.addData("L_JoystickY", gamepad1.left_stick_y);
-        telemetry.addData("Left Trigger", gamepad1.left_trigger);
-        telemetry.addData("Right Trigger", gamepad1.right_trigger);
+        telemetry.addData("Left Trigger", gamepad2.left_trigger);
+        telemetry.addData("Right Trigger", gamepad2.right_trigger);
         //Handle buttons first
-        if (gamepad1.a) {
+        if (gamepad2.a) {
             if (aSwap) anvil.cServo(anvil.cageServo, 0);
-            else anvil.cServo(anvil.cageServo, 0.5);
+            else anvil.cServo(anvil.cageServo, -0.5);
             aSwap ^= true;
         }
-        if (gamepad1.b) {
+        if (gamepad2.b) {
             anvil.servoMov(0.5, 0.5);
-        } else if (gamepad1.x){
-            anvil.servoMov(0.1, 0.9);
-        } else if (gamepad1.y){
-            anvil.servoMov(0.9, 0.1);
+        } else if (gamepad2.x){
+            anvil.servoMov(0.2, 0.8);
+        } else if (gamepad2.y){
+            anvil.servoMov(0.8, 0.2);
         }
-        if (gamepad1.dpad_up) anvil.customMov(anvil.slideMotor, 0.5);
-        else if (gamepad1.dpad_down) anvil.customMov(anvil.slideMotor, -0.5);
-        else if (!gamepad1.dpad_up && !gamepad1.dpad_down) anvil.customMov(anvil.slideMotor, 0);
+        if (gamepad2.dpad_up) anvil.customMov(anvil.slideMotor, 0.5);
+        else if (gamepad2.dpad_down) anvil.customMov(anvil.slideMotor, -0.5);
+        else if (!gamepad2.dpad_up && !gamepad2.dpad_down) anvil.customMov(anvil.slideMotor, 0);
 
-        if (gamepad1.atRest()) anvil.rest();
+        if (gamepad2.atRest()) anvil.rest();
         else {
-            if (gamepad1.right_trigger > 0){
-                anvil.customMov(anvil.armMotor, gamepad1.right_trigger/2);
-            } else if (gamepad1.left_trigger > 0){
-                anvil.customMov(anvil.armMotor, -gamepad1.left_trigger/2);
-            } else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0){
+            if (gamepad2.right_trigger > 0){
+                anvil.customMov(anvil.armMotor, gamepad2.right_trigger/2);
+            } else if (gamepad2.left_trigger > 0){
+                anvil.customMov(anvil.armMotor, -gamepad2.left_trigger/2);
+            } else if (gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0){
                 anvil.customMov(anvil.armMotor,0);
             }
             //Moves the robot to the left if the right stick is moved to the left.
