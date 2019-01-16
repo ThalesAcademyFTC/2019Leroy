@@ -36,11 +36,9 @@ public class ClaspTeleop extends OpMode {
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
 
         //Uses Buttons
-        if (gamepad1.a) {
-            if (aSwap) anvil.customMov(anvil.armMotor, 1);
-            else anvil.customMov(anvil.armMotor, 0);
-            aSwap ^= true;
-        }
+        if (gamepad1.a) anvil.customMov(anvil.armMotor, 1);
+        else if (gamepad1.y) anvil.customMov(anvil.armMotor, -1);
+        else anvil.customMov(anvil.armMotor, 0);
 
         if (gamepad1.dpad_up){
             anvil.customMov(anvil.slideMotor, 0.5);

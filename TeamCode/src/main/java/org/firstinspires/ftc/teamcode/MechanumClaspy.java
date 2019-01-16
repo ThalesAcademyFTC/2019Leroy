@@ -127,7 +127,7 @@ public class MechanumClaspy extends OpMode {
                 anvil.customMov(anvil.armMotor, gamepad2.right_trigger/2);
             } else if (gamepad2.left_trigger > 0){
                 anvil.customMov(anvil.armMotor, -gamepad2.left_trigger/2);
-            } else if (gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0){
+            } else if (gamepad2.right_trigger < 0.1 && gamepad2.left_trigger < 0.1){
                 anvil.customMov(anvil.armMotor,0);
             }
             //Moves the robot to the left if the right stick is moved to the left.
