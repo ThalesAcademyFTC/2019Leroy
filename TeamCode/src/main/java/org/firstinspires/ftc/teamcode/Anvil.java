@@ -2,6 +2,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -34,8 +35,7 @@ public class Anvil {
 
     private double prevailingSpeed = 0.5;
 
-    public DcMotor[] forward, right, left, special, unique;
-    private DcMotor competition[] = {extMotor};
+    public DcMotor[] forward, right, left, special, unique, competition;
 
     public boolean hs = true;
 
@@ -157,15 +157,16 @@ public class Anvil {
                 servo1 = hwMap.servo.get("servo1");
                 servo2 = hwMap.servo.get("servo2");
                 cageServo = hwMap.servo.get("cageServo");
-                motor1.setDirection(DcMotor.Direction.REVERSE);
-                motor2.setDirection(DcMotor.Direction.FORWARD);
+                motor1.setDirection(DcMotor.Direction.FORWARD);
+                motor2.setDirection(DcMotor.Direction.REVERSE);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
                 motor4.setDirection(DcMotor.Direction.REVERSE);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
-                right = new DcMotor[]{motor1, motor3};
-                left = new DcMotor[]{motor2, motor4};
+                left = new DcMotor[]{motor1, motor3};
+                right = new DcMotor[]{motor2, motor4};
                 special = new DcMotor[]{motor1, motor4};
                 unique = new DcMotor[]{motor3, motor2};
+                competition = new DcMotor[]{slideMotor, armMotor};
                 hs = false;
                 break;
             case SWERVE:
@@ -234,7 +235,10 @@ public class Anvil {
         servo2.setPosition(pace2);
     }
     public void cServo(Servo servo, double pace) {servo.setPosition(pace);}
-    public void rest() {for (DcMotor x:forward) x.setPower(0);}
+    public void rest() {
+        for (DcMotor x:forward) x.setPower(0);
+        //for (DcMotor x:competition) x.setPower(0);
+    }
 
     //Experimental function to turn while moving forward. Increases Maneuverability of robot.
     //ctx = controller x
