@@ -105,25 +105,25 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Right Trigger", gamepad2.right_trigger);
         //Handle buttons first
-        if (gamepad2.left_bumper) anvil.cServo(anvil.cageServo, 0);
-        else if (gamepad2.right_bumper) anvil.cServo(anvil.cageServo, -0.5);
-        if (gamepad2.b) {
+        if (gamepad1.left_bumper) anvil.cServo(anvil.cageServo, 0);
+        else if (gamepad1.right_bumper) anvil.cServo(anvil.cageServo, -0.5);
+        if (gamepad1.b) {
             anvil.servoMov(0.4, 0.6); // 0.5, 0.5
-        } else if (gamepad2.x){
+        } else if (gamepad1.x){
             anvil.servoMov(0.15, 0.9); //0.2, 0.85
-        } else if (gamepad2.y){
+        } else if (gamepad1.y){
             anvil.servoMov(0.75, 0.1); //0.85, 0.2
         }
-        if (gamepad2.dpad_up) anvil.customMov(anvil.slideMotor, 1);
-        else if (gamepad2.dpad_down) anvil.customMov(anvil.slideMotor, -1);
-        else if (!gamepad2.dpad_up && !gamepad2.dpad_down) anvil.customMov(anvil.slideMotor, 0);
+        if (gamepad1.dpad_up) anvil.customMov(anvil.slideMotor, 1);
+        else if (gamepad1.dpad_down) anvil.customMov(anvil.slideMotor, -1);
+        else if (!gamepad1.dpad_up && !gamepad2.dpad_down) anvil.customMov(anvil.slideMotor, 0);
 
-        if (gamepad2.atRest() && gamepad1.atRest()) anvil.rest();
+        if (gamepad1.atRest() && gamepad1.atRest()) anvil.rest();
         else {
             //anvil.customMov(anvil.armMotor, (gamepad2.right_trigger - gamepad2.left_trigger) / 2);
-            if (gamepad2.right_trigger > 0.1) {
+            if (gamepad1.right_trigger > 0.1) {
                 anvil.customMov(anvil.armMotor, gamepad2.right_trigger/2);
-            } else if (gamepad2.left_trigger > 0.1) {
+            } else if (gamepad1.left_trigger > 0.1) {
                 anvil.customMov(anvil.armMotor, -gamepad2.left_trigger/2);
             } else anvil.customMov(anvil.armMotor, 0);
             //Moves the robot to the left if the right stick is moved to the left.
