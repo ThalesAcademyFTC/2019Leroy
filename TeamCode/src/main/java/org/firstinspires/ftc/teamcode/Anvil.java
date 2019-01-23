@@ -349,4 +349,25 @@ public class Anvil {
             Thread.currentThread().interrupt();
         }
     }
+    //Autonomous functions
+    public void moveFB(long delay, double speed){ //speed positive to go forward,  negative to go backwards.
+        for (DcMotor x:forward) x.setPower(speed);
+        sleep(delay);
+        for (DcMotor x:forward) x.setPower(0);
+    }
+    public void moveLR(long delay, double speed){ // speed positive to go left, negative to go right.
+        for (DcMotor x: unique) x.setPower(-speed);
+        for (DcMotor x:special) x.setPower(speed);
+        sleep(delay);
+        for (DcMotor x: unique) x.setPower(0);
+        for (DcMotor x:special) x.setPower(0);
+    }
+    public void turn(long delay, double speed){ //speed positive to go left, negative to go right.
+        for (DcMotor x:right) x.setPower(-speed);
+        for (DcMotor x:left) x.setPower(speed);
+        sleep(delay);
+        for (DcMotor x:right) x.setPower(0);
+        for (DcMotor x:left) x.setPower(0);
+    }
+
 }

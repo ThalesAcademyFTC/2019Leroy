@@ -69,7 +69,7 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 @Autonomous(name="Auton", group="Linear Opmode")
 //@Disabled
 
-public class Auton extends LinearOpMode {
+public class DepotAuton extends LinearOpMode {
    Anvil anvil = new Anvil();
 
     // Declare OpMode members.

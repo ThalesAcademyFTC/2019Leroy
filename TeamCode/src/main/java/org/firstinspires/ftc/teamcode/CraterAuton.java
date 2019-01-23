@@ -69,8 +69,8 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 @Autonomous(name="Auton", group="Linear Opmode")
 //@Disabled
 
-public class Auton extends LinearOpMode {
-   Anvil anvil = new Anvil();
+public class CraterAuton extends LinearOpMode {
+    Anvil anvil = new Anvil();
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -123,38 +123,38 @@ public class Auton extends LinearOpMode {
 
 
         OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
-                    .translation(0, mmFTCFieldWidth, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
-            blueRover.setLocation(blueRoverLocationOnField);
+                .translation(0, mmFTCFieldWidth, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
+        blueRover.setLocation(blueRoverLocationOnField);
 
-            OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
-                    .translation(0, -mmFTCFieldWidth, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
-            redFootprint.setLocation(redFootprintLocationOnField);
+        OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
+                .translation(0, -mmFTCFieldWidth, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
+        redFootprint.setLocation(redFootprintLocationOnField);
 
-            OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
-                    .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
-            frontCraters.setLocation(frontCratersLocationOnField);
+        OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
+                .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
+        frontCraters.setLocation(frontCratersLocationOnField);
 
-            OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
-                    .translation(mmFTCFieldWidth, 0, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
+        OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
+                .translation(mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
 
-            backSpace.setLocation(backSpaceLocationOnField);
-            final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: Camera is 110 mm in front of robot center
-            final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
-            final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
+        backSpace.setLocation(backSpaceLocationOnField);
+        final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: Camera is 110 mm in front of robot center
+        final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
+        final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
 
-            OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
-                    .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
-                            CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
+        OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
+                .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
+                        CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
 
-            for (VuforiaTrackable trackable : allTrackables) {
-                ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
-            }
-            /**--------------------------------------------------------------------------------------------------------------**/
+        for (VuforiaTrackable trackable : allTrackables) {
+            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+        }
+        /**--------------------------------------------------------------------------------------------------------------**/
         waitForStart();
         //Activates Vuforia.
         targetsRoverRuckus.activate();
@@ -188,8 +188,8 @@ public class Auton extends LinearOpMode {
                 telemetry.addData("Visible Target", "none");
             }
             telemetry.update();
-                }
-
-            }
-
         }
+
+    }
+
+}
