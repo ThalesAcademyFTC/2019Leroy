@@ -24,7 +24,6 @@ public class Anvil {
     //Define servo and motor variables
     public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, slideMotor2, armMotor, extMotor, armMotor2;
 
-
     public DcMotor clawMotor;
     public Servo servo1, servo2;
     public Servo jewelServo, cageServo;
@@ -40,6 +39,29 @@ public class Anvil {
     public DcMotor[] forward, right, left, special, unique, competition;
 
     public boolean hs = true;
+
+    private ThreadedWorker birdThread = new ThreadedWorker(new Runnable() {
+        @Override
+        public void run() {
+            if (cageServo.getPosition() < 1) cageServo.setPosition(cageServo.getPosition() + 0.02);
+            try {
+                Thread.currentThread().sleep(2l);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    },
+            new Runnable() {
+                @Override
+                public void run() {
+                    if (cageServo.getPosition() > 0) cageServo.setPosition(cageServo.getPosition() - 0.02);
+                    try {
+                        Thread.currentThread().sleep(2l);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            });
 
     public enum drivetrain {
         HOLONOMIC,
@@ -312,6 +334,11 @@ public class Anvil {
             motor.setMode(DcMotor.RunMode.RESET_ENCODERS);
             motor.setTargetPosition(encoderTicks);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    public void startCage() {
+        if (birdThread.isAlive()) birdThread.interrupt();
+        else birdThread.run();
     }
 
     private void sleep(long milliseconds) {
