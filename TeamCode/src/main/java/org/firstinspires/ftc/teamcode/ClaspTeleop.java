@@ -16,12 +16,9 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 public class ClaspTeleop extends OpMode {
     //Initiates the Anvil object.
     private Anvil anvil = new Anvil();
-
+    boolean aSwap = true;
     @Override
     public void start() {
-        if (gamepad1.dpad_left) {
-            //Assign and start a thread for Dev Mode
-        }
     }
 
     @Override
@@ -39,15 +36,22 @@ public class ClaspTeleop extends OpMode {
         telemetry.addData("R_JoystickY", gamepad1.left_stick_y);
 
         //Uses Buttons
-        if (gamepad1.a) {
-           //Unused Button
-        } else if (gamepad1.b){
+        if (gamepad1.a) anvil.customMov(anvil.armMotor, 1);
+        else if (gamepad1.y) anvil.customMov(anvil.armMotor, -1);
+        else anvil.customMov(anvil.armMotor, 0);
 
-        } else if (gamepad1.x){
-
-        } else if (gamepad1.y){
-
+        if (gamepad1.dpad_up){
+            anvil.customMov(anvil.slideMotor, 1);
+            anvil.customMov(anvil.slideMotor2, -0.5);
+        } else if (gamepad1.dpad_down){
+            anvil.customMov(anvil.slideMotor, -1);
+            anvil.customMov(anvil.slideMotor2, 0.5);
+        } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
+            anvil.customMov(anvil.slideMotor, 0);
+            anvil.customMov(anvil.slideMotor2, 0);
         }
+        if (gamepad1.b) anvil.servoMov(0, 1);
+        if(gamepad1.x) anvil.servoMov(6, 3);
         //Deals with controls for drive train.
         if (gamepad1.atRest()) {
             //Ensures that if the gamepad is at rest, then the robot does not move.
@@ -63,16 +67,6 @@ public class ClaspTeleop extends OpMode {
             }
             //controls the lift of the robot, to bring it off the ground
             //Doesnt work, for some reason, says the Dpad is being pushed but no response with the motors.
-            if (gamepad1.dpad_up){
-                anvil.customMov(anvil.slideMotor, 0.5);
-                anvil.customMov(anvil.slideMotor2, -0.5);
-            } else if (gamepad1.dpad_down){
-                anvil.customMov(anvil.slideMotor, -0.5);
-                anvil.customMov(anvil.slideMotor2, 0.5);
-            } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
-                anvil.customMov(anvil.slideMotor, 0);
-                anvil.customMov(anvil.slideMotor2, 0);
-            }
             //Decides whether the left stick x or the left stick y is farther from the origin
             //This decides whether the robot should move sideways or forward/backward.
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
