@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -67,7 +68,7 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
  */
 
 @Autonomous(name="Auton", group="Linear Opmode")
-//@Disabled
+@Disabled
 
 public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();

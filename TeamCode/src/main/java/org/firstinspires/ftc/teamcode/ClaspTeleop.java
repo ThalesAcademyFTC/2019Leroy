@@ -58,11 +58,11 @@ public class ClaspTeleop extends OpMode {
             anvil.rest();
         } else {
             //Controls the ability to extend the arm, using the triggers.
-            if (gamepad1.right_trigger > 0){
+            if (gamepad1.right_trigger > 0.1){
                 anvil.customMov(anvil.extMotor, gamepad1.right_trigger);
-            } else if (gamepad1.left_trigger > 0){
+            } else if (gamepad1.left_trigger > 0.1){
                 anvil.customMov(anvil.extMotor, -gamepad1.left_trigger);
-            } else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0){
+            } else if (gamepad1.right_trigger < 0.1 && gamepad1.left_trigger < 0.1){
                 anvil.customMov(anvil.extMotor,0);
             }
             //controls the lift of the robot, to bring it off the ground

@@ -66,7 +66,7 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Auton", group="Linear Opmode")
+@Autonomous(name="DepotAuton", group="Linear Opmode")
 //@Disabled
 
 public class DepotAuton extends LinearOpMode {
