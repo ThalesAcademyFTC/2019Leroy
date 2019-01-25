@@ -105,7 +105,7 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Right Trigger", gamepad2.right_trigger);
         //Handle buttons first
-        if (gamepad1.a) {
+        if (gamepad1.x) {
             if (aSwap) {
                 anvil.cServo(anvil.cageServo, 1);
                 aSwap = false;
@@ -117,7 +117,7 @@ public class MechanumClaspy extends OpMode {
 
         if (gamepad1.b) {
             anvil.servoMov(0.4, 0.6); // 0.5, 0.5
-        } else if (gamepad1.x){
+        } else if (gamepad1.a){
             anvil.servoMov(0.15, 0.9); //0.2, 0.85
         } else if (gamepad1.y){
             anvil.servoMov(0.75, 0.1); //0.85, 0.2
@@ -138,12 +138,12 @@ public class MechanumClaspy extends OpMode {
             //Moves the robot to the left if the right stick is moved to the left.
             //Since left is the opposite of right, the right stick receiving a negative value makes the robot turn right.
             if (Math.abs(gamepad1.right_stick_x) > 0) {
-                anvil.turnLeft(gamepad1.right_stick_x / 2);
+                anvil.turnLeft(gamepad1.right_stick_x);
             }
             //Below decides whether the left stick x value is farther from the origin than the y value.
             //This decides whether the robot needs to move sideways or forward/backward.
             if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-                anvil.holoMoveLeft(gamepad1.left_stick_x / 2);
+                anvil.holoMoveLeft(-gamepad1.left_stick_x);
             } else {
                 anvil.moveBackward(gamepad1.left_stick_y);
             }

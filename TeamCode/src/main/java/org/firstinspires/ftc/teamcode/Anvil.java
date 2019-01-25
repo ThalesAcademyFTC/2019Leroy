@@ -139,6 +139,8 @@ public class Anvil {
                 slideMotor2 = hwMap.dcMotor.get("slideMotor2");
                 extMotor = hwMap.dcMotor.get("extMotor");
                 armMotor = hwMap.dcMotor.get("armMotor");
+                servo1 = hwMap.servo.get("clawServo1");
+                servo2 = hwMap.servo.get("clawServo2");
                 motor1.setDirection(DcMotor.Direction.REVERSE);
                 motor2.setDirection(DcMotor.Direction.FORWARD);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
@@ -324,7 +326,7 @@ public class Anvil {
     //Autonomous functions
     public void moveFB(long delay, double speed){ //speed positive to go forward,  negative to go backwards.
         for (DcMotor x:forward) x.setPower(speed);
-        sleep(delay);
+        sleep(200);
         for (DcMotor x:forward) x.setPower(0);
     }
     public void moveLR(long delay, double speed){ // speed positive to go left, negative to go right.
@@ -341,5 +343,11 @@ public class Anvil {
         for (DcMotor x:right) x.setPower(0);
         for (DcMotor x:left) x.setPower(0);
     }
+    public void armMov(long delay, double speed){
+        armMotor.setPower(speed);
+        sleep(delay);
+        armMotor.setPower(0);
+    }
+
 
 }

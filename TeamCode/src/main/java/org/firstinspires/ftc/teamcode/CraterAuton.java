@@ -51,6 +51,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
+import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.MECHANUM;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 
 /**
@@ -79,114 +80,20 @@ public class CraterAuton extends LinearOpMode {
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
-        anvil.init(hardwareMap, WEST_COAST, telemetry);
+        anvil.init(hardwareMap, MECHANUM, telemetry);
         telemetry.addData("Status", "Initialized");
         runtime.reset();
         telemetry.update();
-        /**------------------------------------------------------------------------------------------------------------------------------------------------**/
-        //This code is for the initialization of the Vufori code. This code allows the camera on the robot to find its
-        //location on the field using 4 images located half way along the wall of each side.
-        final String VUFORIA_KEY = "ATeL/Fn/////AAABmSfhyS8XrEDzmUk23Kkv+MxeFRT/SOQ2r/2NCLavFRh/7bOvcc7bjgoZ6Fhkn0FGCIL9hnojaRNRO+MUlh235crgEE6CtJoQsITOZVaf/cpmRPQPP1WLkDQBo/zZKmjkI68CCpP7VDO8DInfaYOE2koe2fgP65pE9ELovYEcb40HIqN85Me9fP5dIKFrYsvdt1uF1efJaQZYBa0JZ08SZ4QDs1ZPI/ZxdHTJWUhLKmvKOHKIXo6ruc2CJkEizk799cRVoipbJ6bYQ4MntSOARe+Mg1VDwnUwXNQWXgyOOB32mv5h5lHFr5SahcQgkE1XMgfzAqeTKAccX1X/fdNAe+0aDmvAc/w0t8DU4rxCo45j";
-        ArrayList movInfo = new ArrayList();
-        final float mmPerInch = 25.4f;
-        final float mmFTCFieldWidth = (12 * 6) * mmPerInch;
-        final float mmTargetHeight = (6) * mmPerInch;
-        final float tickPerInch;
-        final float tickPerDeg;
-        final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-        OpenGLMatrix lastLocation = null;
-        boolean targetVisible = false;
-        VuforiaLocalizer vuforia;
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CAMERA_CHOICE;
-
-        //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        //this used to be vuforia = ClassFactory.getInstance().
-        // Load the data sets that for the trackable objects. These particular data
-        // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsRoverRuckus = vuforia.loadTrackablesFromAsset("RoverRuckus");
-        VuforiaTrackable blueRover = targetsRoverRuckus.get(0);
-        blueRover.setName("Blue-Rover");
-        VuforiaTrackable redFootprint = targetsRoverRuckus.get(1);
-        redFootprint.setName("Red-Footprint");
-        VuforiaTrackable frontCraters = targetsRoverRuckus.get(2);
-        frontCraters.setName("Front-Craters");
-        VuforiaTrackable backSpace = targetsRoverRuckus.get(3);
-        backSpace.setName("Back-Space");
-
-        // For convenience, gather together all the trackable objects in one easily-iterable collection */
-        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
-        allTrackables.addAll(targetsRoverRuckus);
-
-
-        OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
-                .translation(0, mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
-        blueRover.setLocation(blueRoverLocationOnField);
-
-        OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
-                .translation(0, -mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
-        redFootprint.setLocation(redFootprintLocationOnField);
-
-        OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
-                .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
-        frontCraters.setLocation(frontCratersLocationOnField);
-
-        OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
-                .translation(mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
-
-        backSpace.setLocation(backSpaceLocationOnField);
-        final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: Camera is 110 mm in front of robot center
-        final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
-        final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
-
-        OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
-                .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
-                        CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
-
-        for (VuforiaTrackable trackable : allTrackables) {
-            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
-        }
-        /**--------------------------------------------------------------------------------------------------------------**/
         waitForStart();
-        //Activates Vuforia.
-        targetsRoverRuckus.activate();
-        anvil.vufMove(movInfo, 50, 50, 0);
+
+        anvil.moveFB(2000, 1);
+        anvil.moveLR(2000, 1);
+        anvil.turn(1900, -1);
+        anvil.moveFB(5000, -1);
+        anvil.servoMov(0, 1);
+        anvil.armMov(1000, 0.5);
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
-            targetVisible = false;
-            for (VuforiaTrackable trackable : allTrackables) {
-                if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
-                    telemetry.addData("Visible Target", trackable.getName());
-                    targetVisible = true;
-
-                    // getUpdatedRobotLocation() will return null if no new information is available since
-                    // the last time that call was made, or if the trackable is not currently visible.
-                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
-                    if (robotLocationTransform != null) {
-                        lastLocation = robotLocationTransform;
-                    }
-                    break;
-                }
-            }
-            if (targetVisible) {
-                VectorF translation = lastLocation.getTranslation();
-                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
-                Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-                //Adds X,Y, and Z translations to an ArrayList.
-                for (int x = 0; x <= 1; x++) movInfo.add(translation.get(x) / mmPerInch);
-                movInfo.add(rotation.thirdAngle);
-            } else {
-                telemetry.addData("Visible Target", "none");
-            }
             telemetry.update();
         }
 
