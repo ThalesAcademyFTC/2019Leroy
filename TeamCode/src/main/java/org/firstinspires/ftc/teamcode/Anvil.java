@@ -40,29 +40,6 @@ public class Anvil {
 
     public boolean hs = true;
 
-    private ThreadedWorker birdThread = new ThreadedWorker(new Runnable() {
-        @Override
-        public void run() {
-            if (cageServo.getPosition() < 1) cageServo.setPosition(cageServo.getPosition() + 0.02);
-            try {
-                Thread.currentThread().sleep(2l);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    },
-            new Runnable() {
-                @Override
-                public void run() {
-                    if (cageServo.getPosition() > 0) cageServo.setPosition(cageServo.getPosition() - 0.02);
-                    try {
-                        Thread.currentThread().sleep(2l);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            });
-
     public enum drivetrain {
         HOLONOMIC,
         TANK,
@@ -178,12 +155,12 @@ public class Anvil {
                 motor4 = hwMap.dcMotor.get("motor4");
                 slideMotor = hwMap.dcMotor.get("slideMotor");
                 armMotor = hwMap.dcMotor.get("armMotor");
-                armMotor2 = hwMap.dcMotor.get("armMotor2");
+                //armMotor2 = hwMap.dcMotor.get("armMotor2");
                 servo1 = hwMap.servo.get("servo1");
                 servo2 = hwMap.servo.get("servo2");
                 cageServo = hwMap.servo.get("cageServo");
-                motor1.setDirection(DcMotor.Direction.FORWARD);
-                motor2.setDirection(DcMotor.Direction.REVERSE);
+                motor1.setDirection(DcMotor.Direction.REVERSE);
+                motor2.setDirection(DcMotor.Direction.FORWARD);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
                 motor4.setDirection(DcMotor.Direction.REVERSE);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
@@ -334,11 +311,6 @@ public class Anvil {
             motor.setMode(DcMotor.RunMode.RESET_ENCODERS);
             motor.setTargetPosition(encoderTicks);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    public void startCage() {
-        if (birdThread.isAlive()) birdThread.interrupt();
-        else birdThread.run();
     }
 
     private void sleep(long milliseconds) {
