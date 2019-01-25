@@ -106,13 +106,15 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("Right Trigger", gamepad2.right_trigger);
         //Handle buttons first
         if (gamepad1.a) {
-            if (anvil.cageServo.getPosition() < 1) {
+            if (aSwap) {
                 anvil.cServo(anvil.cageServo, 1);
-            }
-            else {
-                anvil.cServo(anvil.cageServo, .5);
+                aSwap = false;
+            } else {
+                anvil.cServo(anvil.cageServo, 0.5);
+                aSwap = true;
             }
         }
+
         if (gamepad1.b) {
             anvil.servoMov(0.4, 0.6); // 0.5, 0.5
         } else if (gamepad1.x){

@@ -236,7 +236,7 @@ public class Anvil {
         servo1.setPosition(pace);
         servo2.setPosition(pace2);
     }
-    public void cServo(Servo servo, double pace) {servo.setPosition(pace);}
+    public void cServo(Servo servo, double pos) {servo.setPosition(pos);}
     public void rest() {
         for (DcMotor x:forward) x.setPower(0);
         //for (DcMotor x:competition) x.setPower(0);
