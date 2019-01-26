@@ -68,7 +68,7 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
  */
 
 @Autonomous(name="Auton", group="Linear Opmode")
-@Disabled
+//@Disabled
 
 public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();
@@ -80,7 +80,6 @@ public class Auton extends LinearOpMode {
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
-        anvil.init(hardwareMap, WEST_COAST, telemetry);
         telemetry.addData("Status", "Initialized");
         runtime.reset();
         telemetry.update();
@@ -159,7 +158,6 @@ public class Auton extends LinearOpMode {
         waitForStart();
         //Activates Vuforia.
         targetsRoverRuckus.activate();
-        anvil.vufMove(movInfo, 50, 50, 0);
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
             targetVisible = false;
