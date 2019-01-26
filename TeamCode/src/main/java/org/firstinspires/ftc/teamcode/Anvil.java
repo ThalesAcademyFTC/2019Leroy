@@ -166,10 +166,10 @@ public class Anvil {
                 motor3.setDirection(DcMotor.Direction.FORWARD);
                 motor4.setDirection(DcMotor.Direction.REVERSE);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
-                left = new DcMotor[]{motor1, motor3};
-                right = new DcMotor[]{motor2, motor4};
-                special = new DcMotor[]{motor1, motor4};
-                unique = new DcMotor[]{motor3, motor2};
+                left = new DcMotor[]{motor3, motor2}; //motor 1, motor 3
+                right = new DcMotor[]{motor1, motor4}; //motor 2, motor 4
+                special = new DcMotor[]{motor2, motor4};//motor 1, motor 4
+                unique = new DcMotor[]{motor1, motor3}; // motor 3, motor 2
                 competition = new DcMotor[]{slideMotor, armMotor};
                 hs = false;
                 break;
