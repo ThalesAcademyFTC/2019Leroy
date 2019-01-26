@@ -86,10 +86,10 @@ public class CraterAuton extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        anvil.moveFB(2000, 1); //Back from lander position
+        anvil.moveFB(2000, -1); //Back from lander position
         anvil.moveLR(2000, 1); //Shifting Right
-        anvil.turn(1900, -1); //Turning to align the back of the robot with the team area
-        anvil.moveFB(5000, -1); //Moving towards the team area
+        anvil.turn(1900, -1); //Turning to align the back of the robot with the team depot
+        anvil.moveFB(5000, -1); //Moving towards the team depot
         anvil.servoMov(0, 1); //Moving the birdcage platform so arm does not get stuck
         anvil.armMov(1000, 0.5); //Moving arm to put the marker in area
         anvil.moveFB(-7000, 1); //Moving forward to reach the crater
