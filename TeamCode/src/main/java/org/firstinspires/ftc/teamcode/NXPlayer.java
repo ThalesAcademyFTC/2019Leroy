@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.exception.RobotCoreException;
 
+import java.io.IOException;
+
 /**
  * Created by dcrenshaw on 4/3/18.
  *
@@ -26,8 +28,11 @@ public class NXPlayer extends OpMode{
             serializer.initializeFile();
             historian = serializer.deserialize();
         }
-        catch (Throwable e) {
-            throw new RuntimeException(e.getMessage());
+        catch (IOException e) {
+            throw new RuntimeException("IOException encountered. THIS BETTER WORK.");
+        }
+        catch (ClassNotFoundException e) {
+            throw new RuntimeException("Class incorrectly resolved; cannot deserialize.");
         }
         runResolved();
     }

@@ -59,7 +59,7 @@ public class Anvil {
         //Each of these cases are for different drive trains, the setup for each drive train is within.
         switch (type) {
             /*Example drive train:
-            case "TRAIN_NAME":
+            case TRAIN_NAME: //Make sure TRAIN_NAME is in the types enum!
                 //Map all motors to proper variables.
                 motor1 = hwMap.dcMotor.get("motor1");
                 motor2 = hwMap.dcMotor.get("motor2");
@@ -326,7 +326,7 @@ public class Anvil {
     //Autonomous functions
     public void moveFB(long delay, double speed){ //speed positive to go forward,  negative to go backwards.
         for (DcMotor x:forward) x.setPower(speed);
-        sleep(200);
+        sleep(delay);
         for (DcMotor x:forward) x.setPower(0);
     }
     public void moveLR(long delay, double speed){ // speed positive to go left, negative to go right.
