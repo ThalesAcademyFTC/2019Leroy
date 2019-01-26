@@ -95,7 +95,7 @@ public class CraterAuton extends LinearOpMode {
         anvil.armMov(2500, -0.5); //Moving arm to put the marker in area
         sleep(1000);
         anvil.armMov(2500, 0.5);
-        anvil.servoMov(0.75, 1);
+        anvil.servoMov(0.75, 0.1);
         anvil.moveFB(2000, 1); //Moving forward to reach the crater
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {

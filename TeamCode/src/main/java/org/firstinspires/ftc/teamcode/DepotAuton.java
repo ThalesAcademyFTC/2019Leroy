@@ -92,8 +92,12 @@ public class DepotAuton extends LinearOpMode {
        // anvil.moveFB(900, -1);
         //anvil.turn(700, 0.5);
        // anvil.moveFB(900, -1); //Moving towards the team depot
-        anvil.servoMov(0, 1); //Moving the birdcage platform so arm does not get stuck
+        anvil.servoMov(0.4, 0.6); //Moving the birdcage platform so arm does not get stuck
         anvil.armMov(2500, -0.5); //Moving arm to put the marker in area
+        sleep(500);
+        anvil.armMov(2500, 0.5);
+        anvil.servoMov(0.75, 0.1);
+        anvil.moveFB(500, 1);
        // anvil.moveFB(2000, 1);
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
