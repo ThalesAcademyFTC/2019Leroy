@@ -29,6 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.disnodeteam.dogecv.CameraViewDisplay;
+import com.disnodeteam.dogecv.DogeCV;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -52,6 +55,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
+import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.MECHANUM;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 
 /**
@@ -75,17 +79,47 @@ public class Auton extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-
-
+    private GoldAlignDetector detector;
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
+        anvil.init(hardwareMap, MECHANUM, telemetry);
         telemetry.addData("Status", "Initialized");
         runtime.reset();
         telemetry.update();
         /**------------------------------------------------------------------------------------------------------------------------------------------------**/
         //This code is for the initialization of the Vufori code. This code allows the camera on the robot to find its
         //location on the field using 4 images located half way along the wall of each side.
+        // Set up detector
+        detector = new GoldAlignDetector(); // Create detector
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
+        detector.useDefaults(); // Set detector to use default settings
+
+        // Optional tuning
+        detector.alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
+        detector.alignPosOffset = 0; // How far from center frame to offset this alignment zone.
+        detector.downscale = 0.4; // How much to downscale the input frames
+
+        detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
+        //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
+        detector.maxAreaScorer.weight = 0.005; //
+
+        detector.ratioScorer.weight = 5; //
+        detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
+
+        waitForStart();
+        detector.enable(); // Start the detector!
+        anvil.moveFB(300, -1);
+       while (!detector.getAligned() && runtime.milliseconds() < 10000){
+            //need to turn towards the mineral
+            anvil.turnRight(0.5);
+        }
+        anvil.turnRight(0);
+        anvil.turn(1, 100);
+        sleep(500);
+       anvil.moveFB(400, -1);
+       sleep(500);
+        detector.disable();
         final String VUFORIA_KEY = "ATeL/Fn/////AAABmSfhyS8XrEDzmUk23Kkv+MxeFRT/SOQ2r/2NCLavFRh/7bOvcc7bjgoZ6Fhkn0FGCIL9hnojaRNRO+MUlh235crgEE6CtJoQsITOZVaf/cpmRPQPP1WLkDQBo/zZKmjkI68CCpP7VDO8DInfaYOE2koe2fgP65pE9ELovYEcb40HIqN85Me9fP5dIKFrYsvdt1uF1efJaQZYBa0JZ08SZ4QDs1ZPI/ZxdHTJWUhLKmvKOHKIXo6ruc2CJkEizk799cRVoipbJ6bYQ4MntSOARe+Mg1VDwnUwXNQWXgyOOB32mv5h5lHFr5SahcQgkE1XMgfzAqeTKAccX1X/fdNAe+0aDmvAc/w0t8DU4rxCo45j";
         ArrayList movInfo = new ArrayList();
         final float mmPerInch = 25.4f;
@@ -123,44 +157,47 @@ public class Auton extends LinearOpMode {
 
 
         OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
-                    .translation(0, mmFTCFieldWidth, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
-            blueRover.setLocation(blueRoverLocationOnField);
+                .translation(0, mmFTCFieldWidth, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
+        blueRover.setLocation(blueRoverLocationOnField);
 
-            OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
-                    .translation(0, -mmFTCFieldWidth, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
-            redFootprint.setLocation(redFootprintLocationOnField);
+        OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
+                .translation(0, -mmFTCFieldWidth, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
+        redFootprint.setLocation(redFootprintLocationOnField);
 
-            OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
-                    .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
-            frontCraters.setLocation(frontCratersLocationOnField);
+        OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
+                .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
+        frontCraters.setLocation(frontCratersLocationOnField);
 
-            OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
-                    .translation(mmFTCFieldWidth, 0, mmTargetHeight)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
+        OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
+                .translation(mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
 
-            backSpace.setLocation(backSpaceLocationOnField);
-            final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: Camera is 110 mm in front of robot center
-            final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
-            final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
+        backSpace.setLocation(backSpaceLocationOnField);
+        final int CAMERA_FORWARD_DISPLACEMENT = 114;   // eg: Camera is 110 mm in front of robot center
+        final int CAMERA_VERTICAL_DISPLACEMENT = 178;   // eg: Camera is 200 mm above ground
+        final int CAMERA_LEFT_DISPLACEMENT = 127;     // eg: Camera is ON the robot's center line
 
-            OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
-                    .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
-                            CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
+        OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
+                .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
+                        CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
 
-            for (VuforiaTrackable trackable : allTrackables) {
-                ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
-            }
-            /**--------------------------------------------------------------------------------------------------------------**/
-        waitForStart();
-        //Activates Vuforia.
+        for (VuforiaTrackable trackable : allTrackables) {
+            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+        }
+
+        /**--------------------------------------------------------------------------------------------------------------**/
+
         targetsRoverRuckus.activate();
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
-            targetVisible = false;
+            telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
+            telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
+
+             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
                 if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                     telemetry.addData("Visible Target", trackable.getName());
