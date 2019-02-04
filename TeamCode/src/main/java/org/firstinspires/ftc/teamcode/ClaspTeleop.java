@@ -41,11 +41,9 @@ public class ClaspTeleop extends OpMode {
         else anvil.customMov(anvil.armMotor, 0);
 
         if (gamepad1.dpad_up){
-            anvil.customMov(anvil.slideMotor, 1);
-            anvil.customMov(anvil.slideMotor2, -0.5);
+            anvil.customMov(anvil.slideMotor2, -1);
         } else if (gamepad1.dpad_down){
-            anvil.customMov(anvil.slideMotor, -1);
-            anvil.customMov(anvil.slideMotor2, 0.5);
+            anvil.customMov(anvil.slideMotor2, 1);
         } else if (!gamepad1.dpad_up && !gamepad1.dpad_down) {
             anvil.customMov(anvil.slideMotor, 0);
             anvil.customMov(anvil.slideMotor2, 0);

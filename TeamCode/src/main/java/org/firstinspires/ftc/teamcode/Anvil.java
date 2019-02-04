@@ -143,7 +143,7 @@ public class Anvil {
                 servo2 = hwMap.servo.get("clawServo2");
                 motor1.setDirection(DcMotor.Direction.REVERSE);
                 motor2.setDirection(DcMotor.Direction.FORWARD);
-                motor3.setDirection(DcMotor.Direction.FORWARD);
+                motor3.setDirection(DcMotor.Direction.REVERSE);
                 motor4.setDirection(DcMotor.Direction.REVERSE);
                 forward = new DcMotor[]{motor1, motor2, motor3, motor4};
                 right = new DcMotor[]{motor1, motor4};
@@ -309,7 +309,7 @@ public class Anvil {
             w.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
         }
-    public void encMove(DcMotor[] motor,DcMotor[] motor2, int encoderTicks){
+    public void encTurn(DcMotor[] motor,DcMotor[] motor2, int encoderTicks){
         for (DcMotor x : motor2){
             x.setMode(DcMotor.RunMode.RESET_ENCODERS);
             x.setTargetPosition(encoderTicks);
@@ -321,6 +321,14 @@ public class Anvil {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
             }
+    public void encMove(int encoderTicks){ //Positive to go forward, negative to go backwards
+        for (DcMotor x : forward){
+            x.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            x.setTargetPosition(encoderTicks);
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
+
 
     private void sleep(long milliseconds) {
         //Ripped right from the FTC OpMode specifications

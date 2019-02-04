@@ -78,6 +78,7 @@ public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();
 
     // Declare OpMode members.
+    int Dpos = 0;
     private ElapsedTime runtime = new ElapsedTime();
     private GoldAlignDetector detector;
     //-------------------------------------------------------------------------------------------
@@ -107,13 +108,23 @@ public class Auton extends LinearOpMode {
 
         waitForStart();
         detector.enable(); // Start the detector!
-            anvil.moveFB(200, -1);
+            anvil.moveFB(100, -1);
         while (!detector.getAligned() && runtime.milliseconds() < 15000){
-            anvil.turnLeft(0.4);
+            if (runtime.milliseconds() > 2000) anvil.turnRight(0.5);
+            else anvil.turnLeft(0.5);
         }
-            anvil.moveFB(400, -1);
+            anvil.turnLeft(0);
+            anvil.turn(200, 1);
+            //anvil.turn(900, 1);
+            anvil.moveFB(500, -1);
+            anvil.servoMov(0.4, 0.6); //Moving the birdcage platform so arm does not get stuck
+            anvil.armMov(2500, -0.5);
 
-            while (opModeIsActive() && runtime.milliseconds() < 30000) {
+        while (opModeIsActive() && runtime.milliseconds() < 30000) {
+            telemetry.addData("M1 Encoder", anvil.motor1.getCurrentPosition());
+            telemetry.addData("M2 Encoder", anvil.motor2.getCurrentPosition());
+            telemetry.addData("M3 Encoder", anvil.motor3.getCurrentPosition());
+            telemetry.addData("M4 Encoder", anvil.motor4.getCurrentPosition());
             telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
             telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
             telemetry.update();
