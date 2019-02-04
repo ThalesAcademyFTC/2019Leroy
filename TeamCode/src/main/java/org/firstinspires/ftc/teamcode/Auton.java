@@ -87,11 +87,10 @@ public class Auton extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         runtime.reset();
         telemetry.update();
-        //This code is for the initialization of the Vufori code. This code allows the camera on the robot to find its
-        //location on the field using 4 images located half way along the wall of each side.
+
         // Set up detector
         detector = new GoldAlignDetector(); // Create detector
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 1, false); // Initialize it with the app context and camera
         detector.useDefaults(); // Set detector to use default settings
 
         // Optional tuning
@@ -108,38 +107,15 @@ public class Auton extends LinearOpMode {
 
         waitForStart();
         detector.enable(); // Start the detector!
-        anvil.moveFB(200, -1);
+            anvil.moveFB(200, -1);
+        while (!detector.getAligned() && runtime.milliseconds() < 15000){
+            anvil.turnLeft(0.4);
+        }
+            anvil.moveFB(400, -1);
 
-        while (opModeIsActive() && runtime.milliseconds() < 30000) {
+            while (opModeIsActive() && runtime.milliseconds() < 30000) {
             telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
             telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
-
-           /*  targetVisible = false;
-            for (VuforiaTrackable trackable : allTrackables) {
-                if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
-                    telemetry.addData("Visible Target", trackable.getName());
-                    targetVisible = true;
-
-                    // getUpdatedRobotLocation() will return null if no new information is available since
-                    // the last time that call was made, or if the trackable is not currently visible.
-                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
-                    if (robotLocationTransform != null) {
-                        lastLocation = robotLocationTransform;
-                    }
-                    break;
-                }
-            }
-            if (targetVisible) {
-                VectorF translation = lastLocation.getTranslation();
-                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
-                Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-                //Adds X,Y, and Z translations to an ArrayList.
-                for (int x = 0; x <= 1; x++) movInfo.add(translation.get(x) / mmPerInch);
-                movInfo.add(rotation.thirdAngle);
-            } else {
-                telemetry.addData("Visible Target", "none");
-            } */
             telemetry.update();
                 }
 
