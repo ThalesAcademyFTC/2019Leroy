@@ -57,6 +57,10 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.MECHANUM;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
+import static org.firstinspires.ftc.teamcode.Auton.mPos.CENTER;
+import static org.firstinspires.ftc.teamcode.Auton.mPos.LEFT;
+import static org.firstinspires.ftc.teamcode.Auton.mPos.RIGHT;
+import static org.firstinspires.ftc.teamcode.Auton.mPos.UNKNOWN;
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -78,9 +82,17 @@ public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();
 
     // Declare OpMode members.
-    int Dpos = 0;
+    public enum mPos {
+        LEFT,
+        RIGHT,
+        CENTER,
+        UNKNOWN
+    }
+    mPos Dpos = UNKNOWN;
     private ElapsedTime runtime = new ElapsedTime();
     private GoldAlignDetector detector;
+    private int x = 100; //amount we want detector to be more than
+    private int y = 300; //amount we want detector to be less than
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
@@ -108,23 +120,48 @@ public class Auton extends LinearOpMode {
 
         waitForStart();
         detector.enable(); // Start the detector!
-            anvil.moveFB(100, -1);
-        while (!detector.getAligned() && runtime.milliseconds() < 15000){
-            if (runtime.milliseconds() > 2000) anvil.turnRight(0.5);
-            else anvil.turnLeft(0.5);
-        }
-            anvil.turnLeft(0);
-            anvil.turn(200, 1);
-            //anvil.turn(900, 1);
-            anvil.moveFB(500, -1);
-            anvil.servoMov(0.4, 0.6); //Moving the birdcage platform so arm does not get stuck
-            anvil.armMov(2500, -0.5);
+            sleep(1000);
+            anvil.moveFB(150, -1);
+            anvil.turn(200, -0.5);
+                sleep(500);
+                if (detector.getXPosition() > x && detector.getXPosition() < y) {
+                    Dpos = CENTER;
+                } else {
+                    anvil.turn(300, 1);
+                    sleep(500);
+                    if (detector.getXPosition() > x && detector.getXPosition() < y) {
+                        Dpos = LEFT;
+                    } else {
+                        anvil.turn(600, -1);
+                        sleep(500);
+                        Dpos = RIGHT;
+                    }
+                }
+
+            if (Dpos == CENTER){
+                anvil.moveFB(700, -1); //Back from lander position (This should knock off the jewel as well
+                anvil.servoMov(0.4, 0.6); //Moving the birdcage platform so arm does not get stuck
+                anvil.armMov(2500, -0.5); //Moving arm to release marker
+                sleep(500); //Waiting a bit so that arm is not out while the robot is moving
+                anvil.armMov(2500, 0.5); //Bringing back the arm
+                anvil.servoMov(0.75, 0.1); //Putting up the bird cage
+                anvil.moveFB(500, 1); //Moving towards the crater
+            } else if (Dpos == LEFT){
+
+            } else if (Dpos == RIGHT){
+
+            } else {
+
+            }
+
+
 
         while (opModeIsActive() && runtime.milliseconds() < 30000) {
             telemetry.addData("M1 Encoder", anvil.motor1.getCurrentPosition());
             telemetry.addData("M2 Encoder", anvil.motor2.getCurrentPosition());
             telemetry.addData("M3 Encoder", anvil.motor3.getCurrentPosition());
             telemetry.addData("M4 Encoder", anvil.motor4.getCurrentPosition());
+            telemetry.addData("Dpos", Dpos);
             telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
             telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
             telemetry.update();
