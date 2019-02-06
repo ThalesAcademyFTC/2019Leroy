@@ -118,7 +118,7 @@ public class MechanumClaspy extends OpMode {
         if (gamepad1.b) {
             anvil.servoMov(0.3, 0.7); // 0.5, 0.5
         } else if (gamepad1.a){
-            anvil.servoMov(0.05, 0.95); //0.2, 0.85
+            anvil.servoMov(0.15, 0.85); //0.2, 0.85
         } else if (gamepad1.y){
             anvil.servoMov(0.6, 0.4); //0.85, 0.2
         }
