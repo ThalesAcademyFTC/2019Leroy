@@ -105,7 +105,7 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Right Trigger", gamepad2.right_trigger);
         //Handle buttons first
-        if (gamepad1.x) {
+        if (gamepad1.dpad_right) {
             if (aSwap) {
                 anvil.cServo(anvil.cageServo, 1);
                 aSwap = false;
@@ -120,11 +120,17 @@ public class MechanumClaspy extends OpMode {
         } else if (gamepad1.a){
             anvil.servoMov(0.15, 0.85); //0.2, 0.85
         } else if (gamepad1.y){
-            anvil.servoMov(0.6, 0.4); //0.85, 0.2
+            anvil.servoMov(0.65, 0.35); //0.7, 0.4
+        } else if (gamepad1.x){
+            anvil.servoMov(0.05, 0.95);
         }
         if (gamepad1.dpad_up) anvil.customMov(anvil.slideMotor, 1);
         else if (gamepad1.dpad_down) anvil.customMov(anvil.slideMotor, -1);
         else if (!gamepad1.dpad_up && !gamepad2.dpad_down) anvil.customMov(anvil.slideMotor, 0);
+
+        if (gamepad1.right_bumper) anvil.customMov(anvil.liftMotor, 1);
+        else if (gamepad1.left_bumper) anvil.customMov(anvil.liftMotor, -1);
+        else if (!gamepad1.right_bumper && !gamepad2.left_bumper) anvil.customMov(anvil.liftMotor, 0);
 
         if (gamepad1.right_trigger > 0.1) {
             anvil.customMov(anvil.armMotor, gamepad1.right_trigger / 2);

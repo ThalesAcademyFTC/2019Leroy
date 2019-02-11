@@ -22,7 +22,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class Anvil {
     //Define servo and motor variables
-    public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, slideMotor2, armMotor, extMotor, armMotor2;
+    public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, slideMotor2, armMotor, extMotor, armMotor2, liftMotor;
 
     public DcMotor clawMotor;
     public Servo servo1, servo2;
@@ -157,6 +157,7 @@ public class Anvil {
                 motor4 = hwMap.dcMotor.get("motor4");
                 slideMotor = hwMap.dcMotor.get("slideMotor");
                 armMotor = hwMap.dcMotor.get("armMotor");
+                liftMotor = hwMap.dcMotor.get("liftMotor");
                 //armMotor2 = hwMap.dcMotor.get("armMotor2");
                 servo1 = hwMap.servo.get("servo1");
                 servo2 = hwMap.servo.get("servo2");
