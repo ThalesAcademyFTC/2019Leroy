@@ -57,11 +57,10 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.MECHANUM;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
-import static org.firstinspires.ftc.teamcode.Auton.mPos.CENTER;
-import static org.firstinspires.ftc.teamcode.Auton.mPos.LEFT;
-import static org.firstinspires.ftc.teamcode.Auton.mPos.RIGHT;
-import static org.firstinspires.ftc.teamcode.Auton.mPos.UNKNOWN;
-
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.CENTER;
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.LEFT;
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.RIGHT;
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.UNKNOWN;
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
@@ -82,17 +81,9 @@ public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();
 
     // Declare OpMode members.
-    public enum mPos {
-        LEFT,
-        RIGHT,
-        CENTER,
-        UNKNOWN
-    }
-    mPos Dpos = UNKNOWN;
+    private Anvil.mPos Dpos = UNKNOWN;
     private ElapsedTime runtime = new ElapsedTime();
     private GoldAlignDetector detector;
-    private int x = 1; //amount we want detector to be more than
-    private int y = 300; //amount we want detector to be less than
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
@@ -119,7 +110,7 @@ public class Auton extends LinearOpMode {
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
         waitForStart();
-        detector.enable(); // Start the detector!
+        detector.enable(); // Start the detector
             sleep(1000);
             anvil.moveFB(150, -1);
                 sleep(500);
@@ -165,9 +156,8 @@ public class Auton extends LinearOpMode {
                 anvil.servoMov(0.6, 0.4); //Putting up the bird cage
                 anvil.moveFB(2500, 1); //Moving towards the crater
             } else if (Dpos == RIGHT){
-
-                anvil.moveFB(700, -1); //Back from lander position (This should knock off the jewel as well
-                anvil.turn(600, 0.5);
+                anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
+                anvil.turn(1200, 0.5);
                 anvil.moveFB(400, -1);
                 anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
                 sleep(200);

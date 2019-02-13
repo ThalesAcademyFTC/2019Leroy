@@ -48,6 +48,12 @@ public class Anvil {
         OMNIDRIVE,
         SWERVE
     }
+    public enum mPos {
+        LEFT,
+        RIGHT,
+        CENTER,
+        UNKNOWN
+    }
 
     public void init (HardwareMap ahwMap, drivetrain type, Telemetry telem){
         hwMap = ahwMap;
@@ -363,6 +369,11 @@ public class Anvil {
         armMotor.setPower(speed);
         sleep(delay);
         armMotor.setPower(0);
+    }
+    public void liftMov(long delay, double powa){
+        liftMotor.setPower(powa);
+        sleep(delay);
+        liftMotor.setPower(0);
     }
 
 

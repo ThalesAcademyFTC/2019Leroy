@@ -29,7 +29,11 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.disnodeteam.dogecv.CameraViewDisplay;
+import com.disnodeteam.dogecv.DogeCV;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -53,6 +57,10 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.MECHANUM;
 import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.CENTER;
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.LEFT;
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.RIGHT;
+import static org.firstinspires.ftc.teamcode.Anvil.mPos.UNKNOWN;
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -71,12 +79,12 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
 //@Disabled
 
 public class DepotAuton extends LinearOpMode {
-   Anvil anvil = new Anvil();
+    Anvil anvil = new Anvil();
 
     // Declare OpMode members.
+    Anvil.mPos Dpos = UNKNOWN;
     private ElapsedTime runtime = new ElapsedTime();
-
-
+    private GoldAlignDetector detector;
     //-------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() {
@@ -85,25 +93,101 @@ public class DepotAuton extends LinearOpMode {
         runtime.reset();
         telemetry.update();
 
+        // Set up detector
+        detector = new GoldAlignDetector(); // Create detector
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 1, false); // Initialize it with the app context and camera
+        detector.useDefaults(); // Set detector to use default settings
+
+        // Optional tuning
+        detector.alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
+        detector.alignPosOffset = 0; // How far from center frame to offset this alignment zone.
+        detector.downscale = 0.4; // How much to downscale the input frames
+
+        detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
+        //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
+        detector.maxAreaScorer.weight = 0.005; //
+
+        detector.ratioScorer.weight = 5; //
+        detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
+
         waitForStart();
-
-        anvil.moveFB(900, -1); //Back from lander position
-     //   anvil.turn(900, 0.5); //Turning to align the back of the robot with the team depot
-       // anvil.moveFB(900, -1);
-        //anvil.turn(700, 0.5);
-       // anvil.moveFB(900, -1); //Moving towards the team depot
-        anvil.servoMov(0.4, 0.6); //Moving the birdcage platform so arm does not get stuck
-        anvil.armMov(2500, -0.5); //Moving arm to put the marker in area
+       // anvil.liftMov(1000, -1); //lower the lift
+       // anvil.turn(900, 0.5); //turning to align with center
+        detector.enable(); // Start the detector!
+        sleep(1000);
+        anvil.moveFB(150, -1);
         sleep(500);
-        anvil.armMov(2500, 0.5);
-        anvil.servoMov(0.75, 0.1);
-        anvil.moveFB(500, 1);
-       // anvil.moveFB(2000, 1);
+        if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
+            Dpos = CENTER;
+        } else {
+            anvil.turn(500, 0.5);
+            sleep(500);
 
-        while (opModeIsActive() && runtime.milliseconds() < 30000) {
-            telemetry.update();
+            if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
+                Dpos = LEFT;
+            } else {
+                anvil.turn(1200, -0.5);
+                sleep(500);
+                if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
+                    Dpos = RIGHT;
+                } else {
+                    anvil.turn(100, 0.5);
+                    Dpos = CENTER;
                 }
-
             }
+        }
+
+        if (Dpos == CENTER){
+            anvil.moveFB(700, -1); //Back from lander position (This should knock off the jewel as well
+            anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
+            sleep(200);
+            anvil.armMov(2500, -0.5); //Moving arm to release marker
+            sleep(500); //Waiting a bit so that arm is not out while the robot is moving
+            anvil.armMov(2500, 0.5); //Bringing back the arm
+            anvil.servoMov(0.6, 0.4); //Putting up the bird cage
+            anvil.turn(400, 1);
+            anvil.moveFB(2500, 1); //Moving towards the crater
+        } else if (Dpos == LEFT){
+            anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
+            anvil.turn(1200, -0.5); //turning towards depot
+            anvil.moveFB(400, -1); //Moving forward to reach the team depot
+            anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
+            sleep(200);
+            anvil.armMov(2500, -0.5); //Moving arm to release marker
+            sleep(500); //Waiting a bit so that arm is not out while the robot is moving
+            anvil.armMov(2500, 0.5); //Bringing back the arm
+            anvil.servoMov(0.6, 0.4); //Putting up the bird cage
+            anvil.moveFB(2500, 1); //Moving towards the crater
+        } else if (Dpos == RIGHT){
+            anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
+            anvil.turn(1200, 0.5);
+            anvil.moveFB(400, -1);
+            anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
+            sleep(200);
+            anvil.armMov(2500, -0.5); //Moving arm to release marker
+            sleep(500); //Waiting a bit so that arm is not out while the robot is moving
+            anvil.armMov(2500, 0.5); //Bringing back the arm
+            anvil.servoMov(0.6, 0.4); //Putting up the bird cage
+            anvil.moveFB(300, -1);
+            anvil.turn(1000, 1);
+            anvil.moveFB(2000, 1); //Moving towards the crater
+        } else {
 
         }
+
+
+
+        while (opModeIsActive() && runtime.milliseconds() < 30000) {
+            telemetry.addData("M1 Encoder", anvil.motor1.getCurrentPosition());
+            telemetry.addData("M2 Encoder", anvil.motor2.getCurrentPosition());
+            telemetry.addData("M3 Encoder", anvil.motor3.getCurrentPosition());
+            telemetry.addData("M4 Encoder", anvil.motor4.getCurrentPosition());
+            telemetry.addData("Dpos", Dpos);
+            telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
+            telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
+            telemetry.update();
+        }
+
+    }
+
+}

@@ -49,7 +49,7 @@ public class ClaspTeleop extends OpMode {
             anvil.customMov(anvil.slideMotor2, 0);
         }
         if (gamepad1.b) anvil.servoMov(0, 1);
-        if(gamepad1.x) anvil.servoMov(6, 3);
+        else if(gamepad1.x) anvil.servoMov(6, 3);
         //Deals with controls for drive train.
         if (gamepad1.atRest()) {
             //Ensures that if the gamepad is at rest, then the robot does not move.
