@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import android.content.Context;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,16 +24,16 @@ public class NXSerializer {
     private FileOutputStream ofile;
     private FileInputStream ifile;
 
-    public void initializeFile() {
+    public void initializeFile(HardwareMap hmap) {
         try {
-            ofile = FileIO.getContext().openFileOutput("NXHistory.nxh", Context.MODE_PRIVATE);
-            ifile = FileIO.getContext().openFileInput("NXHistory.nxh");
+            ofile = hmap.appContext.openFileOutput("NXHistory.nxh", Context.MODE_PRIVATE);
+            ifile = hmap.appContext.openFileInput("NXHistory.nxh");
         }
         catch (FileNotFoundException e) {
-            File persistentHistory = new File(FileIO.getContext().getFilesDir().getAbsolutePath() + "NXHistory.nxh");
+            File persistentHistory = new File(hmap.appContext.getFilesDir().getAbsolutePath() + "NXHistory.nxh");
             try {
                 persistentHistory.createNewFile();
-                initializeFile();
+                initializeFile(hmap);
             }
             catch (IOException er) {
                 er.printStackTrace();

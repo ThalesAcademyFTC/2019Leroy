@@ -68,7 +68,7 @@ public class NXRecorder extends OpMode implements Gamepad.GamepadCallback {
     public void stop() {
         try {
             NXSerializer serializer = new NXSerializer();
-            serializer.initializeFile();
+            serializer.initializeFile(hardwareMap);
             serializer.serialize(historian);
         }
         catch (IOException e) {

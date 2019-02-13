@@ -25,11 +25,11 @@ public class NXPlayer extends OpMode{
     public void init() {
         //At least half of these lines will be pointless exception handling. Thanks, Java
         try {
-            serializer.initializeFile();
+            serializer.initializeFile(hardwareMap);
             historian = serializer.deserialize();
         }
         catch (IOException e) {
-            throw new RuntimeException("IOException encountered. THIS BETTER WORK.");
+            throw new RuntimeException(e.getMessage());
         }
         catch (ClassNotFoundException e) {
             throw new RuntimeException("Class incorrectly resolved; cannot deserialize.");
