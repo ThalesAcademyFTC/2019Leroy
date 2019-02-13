@@ -159,7 +159,7 @@ public class DepotAuton extends LinearOpMode {
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
             anvil.moveFB(2500, 1); //Moving towards the crater
         } else if (Dpos == RIGHT){
-            anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
+            anvil.moveFB(1000, -1); //Back from lander position (This should knock off the jewel as well
             anvil.turn(1200, 0.5);
             anvil.moveFB(400, -1);
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
@@ -168,9 +168,9 @@ public class DepotAuton extends LinearOpMode {
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
             anvil.armMov(2500, 0.5); //Bringing back the arm
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
-            anvil.moveFB(300, -1);
-            anvil.turn(1000, 1);
-            anvil.moveFB(2000, 1); //Moving towards the crater
+            anvil.moveFB(300, 1);
+            anvil.turn(1000, -1);
+            anvil.moveFB(2000, -1); //Moving towards the crater
         } else {
 
         }
