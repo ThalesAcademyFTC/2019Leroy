@@ -75,7 +75,7 @@ import static org.firstinspires.ftc.teamcode.Anvil.mPos.UNKNOWN;
  */
 
 @Autonomous(name="Auton", group="Linear Opmode")
-//@Disabled
+@Disabled
 
 public class Auton extends LinearOpMode {
    Anvil anvil = new Anvil();

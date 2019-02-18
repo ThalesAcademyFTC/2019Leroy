@@ -111,8 +111,11 @@ public class DepotAuton extends LinearOpMode {
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
         waitForStart();
-       // anvil.liftMov(1000, -1); //lower the lift
-       // anvil.turn(900, 0.5); //turning to align with center
+        anvil.liftMov(1000, -1); //lower the lift
+        anvil.moveFB(200, -1);
+       anvil.moveLR(600, 1);
+       anvil.moveFB(200, 1);
+       anvil.turn(900, 0.5); //turning to align with center
         detector.enable(); // Start the detector!
         sleep(1000);
         anvil.moveFB(150, -1);
@@ -120,7 +123,7 @@ public class DepotAuton extends LinearOpMode {
         if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
             Dpos = CENTER;
         } else {
-            anvil.turn(500, 0.5);
+            anvil.turn(550, 0.5);
             sleep(500);
 
             if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
@@ -131,7 +134,7 @@ public class DepotAuton extends LinearOpMode {
                 if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
                     Dpos = RIGHT;
                 } else {
-                    anvil.turn(100, 0.5);
+                    anvil.turn(350, 0.5);
                     Dpos = CENTER;
                 }
             }
@@ -140,37 +143,37 @@ public class DepotAuton extends LinearOpMode {
         if (Dpos == CENTER){
             anvil.moveFB(700, -1); //Back from lander position (This should knock off the jewel as well
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
-            sleep(200);
+            sleep(700);
             anvil.armMov(2500, -0.5); //Moving arm to release marker
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
             anvil.armMov(2500, 0.5); //Bringing back the arm
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
-            anvil.turn(400, 1);
+            sleep(200);
+            anvil.moveFB(600, 1);
+            anvil.turn(350, 1);
             anvil.moveFB(2500, 1); //Moving towards the crater
         } else if (Dpos == LEFT){
             anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
-            anvil.turn(1200, -0.5); //turning towards depot
+            anvil.turn(1000, -0.5); //turning towards depot
             anvil.moveFB(400, -1); //Moving forward to reach the team depot
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
-            sleep(200);
+            sleep(700);
             anvil.armMov(2500, -0.5); //Moving arm to release marker
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
             anvil.armMov(2500, 0.5); //Bringing back the arm
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
-            anvil.moveFB(2500, 1); //Moving towards the crater
+            anvil.moveFB(2000, 1); //Moving towards the crater
         } else if (Dpos == RIGHT){
-            anvil.moveFB(1000, -1); //Back from lander position (This should knock off the jewel as well
-            anvil.turn(1200, 0.5);
+            anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
+            anvil.turn(1000, 0.5);
             anvil.moveFB(400, -1);
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
-            sleep(200);
+            sleep(700);
             anvil.armMov(2500, -0.5); //Moving arm to release marker
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
             anvil.armMov(2500, 0.5); //Bringing back the arm
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
-            anvil.moveFB(300, 1);
-            anvil.turn(1000, -1);
-            anvil.moveFB(2000, -1); //Moving towards the crater
+            anvil.moveFB(2000, 1);
         } else {
 
         }
