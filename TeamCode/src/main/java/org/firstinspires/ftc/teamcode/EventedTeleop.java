@@ -29,6 +29,6 @@ public class EventedTeleop extends OpMode {
         });
     }
     public void start() {
-
+        controller.start();
     }
 }
