@@ -111,7 +111,7 @@ public class DepotAuton extends LinearOpMode {
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
         waitForStart();
-        anvil.liftMov(1000, -1); //lower the lift
+        anvil.liftMov(3000, -1); //lower the lift
         anvil.moveFB(100, -1);
        anvil.moveLR(500, -1);
        anvil.moveFB(300, 1);
@@ -143,9 +143,9 @@ public class DepotAuton extends LinearOpMode {
             anvil.moveFB(700, -1); //Back from lander position (This should knock off the jewel as well
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
             sleep(700);
-            anvil.armMov(2500, -0.5); //Moving arm to release marker
+            anvil.armMov(2500, -0.3); //Moving arm to release marker
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
-            anvil.armMov(2500, 0.5); //Bringing back the arm
+            anvil.armMov(2500, 0.3); //Bringing back the arm
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
             sleep(200);
             anvil.moveFB(600, 1);
@@ -157,9 +157,9 @@ public class DepotAuton extends LinearOpMode {
             anvil.moveFB(400, -1); //Moving forward to reach the team depot
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
             sleep(700);
-            anvil.armMov(2500, -0.5); //Moving arm to release marker
+            anvil.armMov(2500, -0.3); //Moving arm to release marker
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
-            anvil.armMov(2500, 0.5); //Bringing back the arm
+            anvil.armMov(2500, 0.3); //Bringing back the arm
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
             anvil.moveFB(2000, 1); //Moving towards the crater
         } else if (Dpos == RIGHT){
@@ -168,9 +168,9 @@ public class DepotAuton extends LinearOpMode {
             anvil.moveFB(400, -1);
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
             sleep(700);
-            anvil.armMov(2500, -0.5); //Moving arm to release marker
+            anvil.armMov(2500, -0.3); //Moving arm to release marker
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
-            anvil.armMov(2500, 0.5); //Bringing back the arm
+            anvil.armMov(2500, 0.3); //Bringing back the arm
             anvil.servoMov(0.6, 0.4); //Putting up the bird cage
             anvil.moveFB(2000, 1);
         } else {

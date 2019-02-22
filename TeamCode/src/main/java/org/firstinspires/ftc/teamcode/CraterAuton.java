@@ -111,10 +111,11 @@ public class CraterAuton extends LinearOpMode {
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
         waitForStart();
-        // anvil.liftMov(1000, -1); //lower the lift
-        // anvil.moveFB(200, -1);
-        // anvil.moveLR(200, -1);
-        // anvil.turn(900, 0.5); //turning to align with center
+        anvil.liftMov(3000, -1); //lower the lift
+        anvil.moveFB(100, -1);
+        anvil.moveLR(500, -1);
+        anvil.moveFB(300, 1);
+        anvil.turn(700, 0.5); //turning to align with center
         detector.enable(); // Start the detector!
         sleep(1000);
         anvil.moveFB(150, -1);
@@ -140,33 +141,11 @@ public class CraterAuton extends LinearOpMode {
         }
 
         if (Dpos == CENTER){
-            anvil.moveFB(300, -1); //Back from lander position (This should knock off the jewel as well
-            anvil.turn(300, -1);
-            anvil.moveFB(1000, 1);
-            anvil.turn(900, 1);
-            anvil.moveFB(1000, 1);
-            anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
-            sleep(700);
-            anvil.armMov(2500, -0.5); //Moving arm to release marker
-            sleep(500); //Waiting a bit so that arm is not out while the robot is moving
-            anvil.armMov(2500, 0.5); //Bringing back the arm
-            anvil.servoMov(0.6, 0.4); //Putting up the bird cage
-            anvil.moveFB(2000, -1);
+            anvil.moveFB(500, -1); //Back from lander position (This should knock off the jewel as well
         } else if (Dpos == LEFT){
-            anvil.moveFB(300, -1); //Back from lander position (This should knock off the jewel as well
-            anvil.turn(300, -1);
-            anvil.moveFB(1000, 1);
-            anvil.turn(900, 1);
-            anvil.moveFB(1000, 1);
-            anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
-            sleep(700);
-            anvil.armMov(2500, -0.5); //Moving arm to release marker
-            sleep(500); //Waiting a bit so that arm is not out while the robot is moving
-            anvil.armMov(2500, 0.5); //Bringing back the arm
-            anvil.servoMov(0.6, 0.4); //Putting up the bird cage
-            anvil.moveFB(2000, -1);
+            anvil.moveFB(500, -1); //Back from lander position (This should knock off the jewel as well
         } else if (Dpos == RIGHT){
-            anvil.moveFB(300, -1); //Back from lander position (This should knock off the jewel as well
+            anvil.moveFB(500, -1); //Back from lander position (This should knock off the jewel as well
 
         } else {
 
