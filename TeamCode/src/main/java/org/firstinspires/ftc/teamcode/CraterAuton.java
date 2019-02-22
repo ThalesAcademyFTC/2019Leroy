@@ -111,19 +111,19 @@ public class CraterAuton extends LinearOpMode {
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
         waitForStart();
-        anvil.liftMov(3000, -1); //lower the lift
+        anvil.liftMov(4100, -1); //lower the lift
         anvil.moveFB(100, -1);
+        anvil.moveLR(100, 1);
+        sleep(100);
         anvil.moveLR(500, -1);
-        anvil.moveFB(300, 1);
-        anvil.turn(700, 0.5); //turning to align with center
+        anvil.turn(950, 0.5); //turning to align with center
+        anvil.moveFB(100, -1);
         detector.enable(); // Start the detector!
-        sleep(1000);
-        anvil.moveFB(150, -1);
-        sleep(500);
+        sleep(1500);
         if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
             Dpos = CENTER;
         } else {
-            anvil.turn(550, 0.5);
+            anvil.turn(500, 0.5);
             sleep(500);
 
             if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
@@ -135,7 +135,7 @@ public class CraterAuton extends LinearOpMode {
                     Dpos = RIGHT;
                 } else {
                     anvil.turn(350, 0.5);
-                    Dpos = CENTER;
+                    Dpos = RIGHT;
                 }
             }
         }
