@@ -6,8 +6,8 @@ public class JoystickHandler {
         void run(double x, double y);
     }
 
-    JoystickRunnable handler;
-    Runnable onEnd;
+    JoystickRunnable handler = (double x, double y) -> {};
+    Runnable onEnd = () -> {};
 
     boolean lastState = false;
 

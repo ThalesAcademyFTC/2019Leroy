@@ -28,7 +28,7 @@ import java.io.IOException;
 @TeleOp(name="AutoRecorder", group="Pushbot")
 public class NXRecorder extends OpMode implements Gamepad.GamepadCallback {
 
-    public HoloClaspy teleConnect;
+    public OpMode teleConnect;
     private NXStateHistory historian = new NXStateHistory();
     long startTime = System.currentTimeMillis();
     //private byte[] lastKnownState; Uncomment if recorder fails to catch every state change
@@ -45,7 +45,7 @@ public class NXRecorder extends OpMode implements Gamepad.GamepadCallback {
             gamepad1.copy(new Gamepad(this));
         }
         catch (RobotCoreException e) {} //Error handling is not necessary
-        teleConnect = new HoloClaspy();
+        teleConnect = new MechanumClaspy();
         //This is technically parameter injection.
         teleConnect.telemetry = telemetry;
         teleConnect.hardwareMap = hardwareMap;

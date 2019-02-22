@@ -17,7 +17,7 @@ import java.io.IOException;
 @Autonomous(name="AutoPlayer", group="Pushbot")
 public class NXPlayer extends OpMode{
 
-    private ClaspTeleop teleconnect = new ClaspTeleop();
+    private OpMode teleconnect = new MechanumClaspy();
 
     private NXSerializer serializer = new NXSerializer();
     private NXStateHistory historian; //This will be a StateHistory later

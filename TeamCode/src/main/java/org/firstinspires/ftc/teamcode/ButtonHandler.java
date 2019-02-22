@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
 public class ButtonHandler {
 
-    Runnable pressed;
-    Runnable held;
-    Runnable onEnd;
+    Runnable pressed = () -> {};
+    Runnable held = () -> {}; //WARNING: Not implemented.
+    Runnable onEnd = () -> {};
 
     boolean lastState = false;
 

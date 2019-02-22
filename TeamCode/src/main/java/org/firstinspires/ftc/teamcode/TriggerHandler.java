@@ -6,8 +6,8 @@ public class TriggerHandler {
         void run(double value);
     }
 
-    TriggerRunnable handler;
-    Runnable onEnd;
+    TriggerRunnable handler = (double v) -> {};
+    Runnable onEnd = () -> {};
 
     boolean lastState = false;
 

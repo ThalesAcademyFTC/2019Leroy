@@ -6,29 +6,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name="EventedClasp", group = "Pushbot")
 public class EventedTeleop extends OpMode {
 
-    InputEventController controller = new InputEventController(gamepad1);
+    InputEventController controller = new InputEventController();
     Anvil anvil = new Anvil();
 
     public void loop() {
-
+        controller.run(gamepad1);
     }
     public void init() {
         anvil.init(hardwareMap, Anvil.drivetrain.MECHANUM, telemetry);
-        controller.rightJoystick.handle(new JoystickHandler.JoystickRunnable() {
-            @Override
-            public void run(double x, double y) {
-                if (Math.abs(x) > Math.abs(y)) anvil.turnLeft(x);
-                else anvil.moveBackward(y);
-            }
+        controller.rightJoystick.handle((double x, double y) -> {
+            if (Math.abs(x) > Math.abs(y)) anvil.turnLeft(x);
+            else anvil.moveBackward(y);
         });
-        controller.rightJoystick.after(new Runnable() {
-            @Override
-            public void run() {
-                anvil.rest();
-            }
-        });
-    }
-    public void start() {
-        controller.start();
+        controller.rightJoystick.after(() -> anvil.rest());
     }
 }
