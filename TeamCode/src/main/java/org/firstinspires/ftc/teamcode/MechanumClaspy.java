@@ -154,6 +154,14 @@ public class MechanumClaspy extends OpMode {
                 anvil.moveBackward(gamepad1.left_stick_y);
             }
         }
+        if (!gamepad2.atRest()) {
+            if (Math.abs(gamepad2.left_stick_y) > Math.abs(gamepad2.left_stick_x)) anvil.moveBackward(gamepad2.left_stick_y / 2);
+            else anvil.holoMoveRight(gamepad2.left_stick_x / 2);
+            if (Math.abs(gamepad2.right_stick_x) > 0) anvil.turnLeft(gamepad2.right_stick_x);
+        }
+        if (gamepad2.right_bumper) anvil.customMov(anvil.liftMotor, 1);
+        else if (gamepad2.left_bumper) anvil.customMov(anvil.liftMotor, -1);
+        else anvil.customMov(anvil.liftMotor, 0);
     }
 
 
