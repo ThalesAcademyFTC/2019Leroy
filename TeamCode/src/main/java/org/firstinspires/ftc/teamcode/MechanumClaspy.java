@@ -104,6 +104,8 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("L_JoystickY", gamepad1.left_stick_y);
         telemetry.addData("Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Right Trigger", gamepad2.right_trigger);
+
+        anvil.cServo(anvil.phoneServo, 0.3);
         //Handle buttons first
         if (gamepad1.dpad_right) {
             if (aSwap) {

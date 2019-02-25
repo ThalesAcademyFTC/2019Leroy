@@ -27,7 +27,7 @@ public class Anvil {
     public DcMotor clawMotor;
     public Servo servo1, servo2;
 
-    public Servo jewelServo, cageServo;
+    public Servo jewelServo, cageServo, phoneServo;
     //Reference to mapped servo/motor controller
     private HardwareMap hwMap;
 
@@ -165,7 +165,7 @@ public class Anvil {
                 slideMotor = hwMap.dcMotor.get("slideMotor");
                 armMotor = hwMap.dcMotor.get("armMotor");
                 liftMotor = hwMap.dcMotor.get("liftMotor");
-                //armMotor2 = hwMap.dcMotor.get("armMotor2");
+                phoneServo = hwMap.servo.get("phoneServo");
                 servo1 = hwMap.servo.get("servo1");
                 servo2 = hwMap.servo.get("servo2");
                 cageServo = hwMap.servo.get("cageServo");
