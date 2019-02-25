@@ -1,6 +1,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsTouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -23,9 +24,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 public class Anvil {
     //Define servo and motor variables
     public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, slideMotor2, armMotor, extMotor, armMotor2, liftMotor;
-
     public DcMotor clawMotor;
     public Servo servo1, servo2;
+
     public Servo jewelServo, cageServo;
     //Reference to mapped servo/motor controller
     private HardwareMap hwMap;

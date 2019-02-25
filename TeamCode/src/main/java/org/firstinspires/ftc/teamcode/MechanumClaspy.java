@@ -162,6 +162,15 @@ public class MechanumClaspy extends OpMode {
         if (gamepad2.right_bumper) anvil.customMov(anvil.liftMotor, 1);
         else if (gamepad2.left_bumper) anvil.customMov(anvil.liftMotor, -1);
         else if (!(gamepad1.right_bumper || gamepad1.left_bumper)) anvil.customMov(anvil.liftMotor, 0);
+        if (gamepad2.b) {
+            anvil.servoMov(0.3, 0.7); // 0.5, 0.5
+        } else if (gamepad2.a){
+            anvil.servoMov(0.15, 0.85); //0.2, 0.85
+        } else if (gamepad2.y){
+            anvil.servoMov(0.65, 0.35); //0.7, 0.4
+        } else if (gamepad2.x){
+            anvil.servoMov(0.05, 0.95);
+        }
     }
 
 
