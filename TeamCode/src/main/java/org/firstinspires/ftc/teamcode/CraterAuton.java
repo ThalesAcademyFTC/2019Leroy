@@ -162,9 +162,9 @@ public class CraterAuton extends LinearOpMode {
         anvil.turn(400, 0.5); //may need to reverse
         anvil.moveFB(1000, -1);
         anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
-        anvil.armMov(2500, -0.5); //Moving arm to release marker
+        anvil.armMov(1500, -0.5); //Moving arm to release marker
         sleep(500); //Waiting a bit so that arm is not out while the robot is moving
-        anvil.armMov(2500, 0.5); //Bringing back the arm
+        anvil.armMov(1500, 0.5); //Bringing back the arm
         anvil.servoMov(0.6, 0.4); //Putting up the bird cage
         sleep(200);
         anvil.moveFB(2000, 1);

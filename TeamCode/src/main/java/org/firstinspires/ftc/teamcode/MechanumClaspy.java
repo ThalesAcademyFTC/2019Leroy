@@ -104,6 +104,7 @@ public class MechanumClaspy extends OpMode {
         telemetry.addData("L_JoystickY", gamepad1.left_stick_y);
         telemetry.addData("Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Right Trigger", gamepad2.right_trigger);
+        telemetry.addData("Lift Limit", anvil.liftTouch.getState());
 
         anvil.cServo(anvil.phoneServo, 0.3);
         //Handle buttons first
@@ -131,7 +132,7 @@ public class MechanumClaspy extends OpMode {
         else if (!gamepad1.dpad_up && !gamepad2.dpad_down) anvil.customMov(anvil.slideMotor, 0);
 
         if (gamepad1.right_bumper) anvil.customMov(anvil.liftMotor, 1);
-        else if (gamepad1.left_bumper) anvil.customMov(anvil.liftMotor, -1);
+        else if (gamepad1.left_bumper && anvil.lCheck()) anvil.customMov(anvil.liftMotor, -1);
         else anvil.customMov(anvil.liftMotor, 0);
 
         if (gamepad1.right_trigger > 0.1) {

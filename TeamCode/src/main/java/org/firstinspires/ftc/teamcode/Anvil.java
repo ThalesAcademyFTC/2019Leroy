@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsTouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -26,6 +27,7 @@ public class Anvil {
     public DcMotor motor1, motor2, motor3, motor4, motor5, slideMotor, slideMotor2, armMotor, extMotor, armMotor2, liftMotor;
     public DcMotor clawMotor;
     public Servo servo1, servo2;
+    DigitalChannel liftTouch;
 
     public Servo jewelServo, cageServo, phoneServo;
     //Reference to mapped servo/motor controller
@@ -169,6 +171,8 @@ public class Anvil {
                 servo1 = hwMap.servo.get("servo1");
                 servo2 = hwMap.servo.get("servo2");
                 cageServo = hwMap.servo.get("cageServo");
+                liftTouch = hwMap.get(DigitalChannel.class, "liftTouch");
+                liftTouch.setMode(DigitalChannel.Mode.INPUT);
                 motor1.setDirection(DcMotor.Direction.REVERSE);
                 motor2.setDirection(DcMotor.Direction.FORWARD);
                 motor3.setDirection(DcMotor.Direction.FORWARD);
@@ -268,7 +272,10 @@ public class Anvil {
         for (DcMotor x: unique) x.setPower(-pace);
         for (DcMotor x:special) x.setPower(pace);
     }
-
+    public boolean lCheck(){
+        if (liftTouch.getState()) return true;
+        else return false;
+    }
     //Experimental Autonomous Code that locates the robot on the field using 2 distance sensors at 90 degree angles.
     //Not needed any more because vuforia navigation targets can be used more efficiently.
     public void distDeg(double initx, double inity, double posX, double posY) {
