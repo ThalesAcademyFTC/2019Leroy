@@ -108,16 +108,15 @@ public class CraterAuton extends LinearOpMode {
         detector.maxAreaScorer.weight = 0.005; //
 
         detector.ratioScorer.weight = 5; //
-        detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
-
+        detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustmen
         waitForStart();
         anvil.liftMov(3800, -1); //lower the lift
         anvil.moveFB(100, -1);
         anvil.moveLR(100, 1);
         sleep(100);
         anvil.moveLR(500, -1);
-        anvil.turn(850, 0.5); //turning to align with center
-        anvil.moveFB(100, -1);
+        anvil.turn(550, 0.5); //turning to align with center
+        anvil.cServo(anvil.phoneServo, 0.7);
         detector.enable(); // Start the detector!
         sleep(1500);
         sleep(1000);
@@ -126,7 +125,6 @@ public class CraterAuton extends LinearOpMode {
         } else {
             anvil.turn(450, 0.5);
             sleep(500);
-
             if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
                 Dpos = LEFT;
             } else {
@@ -140,17 +138,20 @@ public class CraterAuton extends LinearOpMode {
                 }
             }
         }
-
+        anvil.cServo(anvil.phoneServo, 0.3);
         if (Dpos == CENTER){
+            anvil.turn(400, 0.5);
             anvil.moveFB(500, -1); //Back from lander position (This should knock off the jewel as well
             sleep(700);
             anvil.moveFB(500, 1);
         } else if (Dpos == LEFT){
+            anvil.turn(400, 0.5);
             anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well`
             sleep(700);
             anvil.moveFB(900, 1);
             anvil.turn(450, -0.5);
         } else if (Dpos == RIGHT){
+            anvil.turn(400, 0.5);
             anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
             sleep(700);
             anvil.moveFB(900, 1);

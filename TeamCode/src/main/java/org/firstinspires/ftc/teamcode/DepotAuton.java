@@ -116,8 +116,7 @@ public class DepotAuton extends LinearOpMode {
         anvil.moveLR(100, 1);
         sleep(100);
         anvil.moveLR(500, -1);
-        anvil.turn(850, 0.5); //turning to align with center
-        anvil.moveFB(100, -1);
+        anvil.turn(550, 0.5); //turning to align with center
         anvil.cServo(anvil.phoneServo, 0.7);
         detector.enable(); // Start the detector!
         sleep(1500);
@@ -142,15 +141,18 @@ public class DepotAuton extends LinearOpMode {
         }
         anvil.cServo(anvil.phoneServo, 0.3);
         if (Dpos == CENTER){
+            anvil.turn(400, 0.5);
             anvil.moveFB(500, -1); //Back from lander position (This should knock off the jewel as well
             sleep(700);
             anvil.moveFB(500, 1);
         } else if (Dpos == LEFT){
+            anvil.turn(400, 0.5);
             anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well`
            sleep(700);
             anvil.moveFB(900, 1);
             anvil.turn(450, -0.5);
         } else if (Dpos == RIGHT){
+            anvil.turn(400, 0.5);
             anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
             sleep(700);
             anvil.moveFB(900, 1);
