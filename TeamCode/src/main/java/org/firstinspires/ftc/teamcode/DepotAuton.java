@@ -111,7 +111,7 @@ public class DepotAuton extends LinearOpMode {
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
         waitForStart();
-        anvil.liftMov(3800, -1); //lower the lift
+        anvil.liftAccMov(1); //lower the lift
         anvil.moveFB(100, -1);
         anvil.moveLR(100, 1);
         sleep(100);

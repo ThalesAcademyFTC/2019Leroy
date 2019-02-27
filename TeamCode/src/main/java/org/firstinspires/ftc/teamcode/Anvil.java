@@ -383,7 +383,10 @@ public class Anvil {
         sleep(delay);
         liftMotor.setPower(0);
     }
-
+    public void liftAccMov(double powa){
+        while(lCheck()) liftMotor.setPower(-powa);
+        liftMotor.setPower(0);
+    }
 
 
 }
