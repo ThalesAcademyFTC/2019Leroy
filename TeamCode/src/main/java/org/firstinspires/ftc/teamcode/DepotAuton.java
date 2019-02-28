@@ -117,7 +117,7 @@ public class DepotAuton extends LinearOpMode {
         sleep(100);
         anvil.moveLR(700, -1);
         anvil.moveFB(100, 1);
-        anvil.turn(100, -0.5);
+       // anvil.turn(100, -1);
         anvil.cServo(anvil.phoneServo, 0.6);
         detector.enable(); // Start the detector!
         sleep(1500);
@@ -156,7 +156,7 @@ public class DepotAuton extends LinearOpMode {
             anvil.turn(780, 0.5);
             anvil.moveFB(900, -0.7); //Back from lander position (This should knock off the jewel as well`
            sleep(700);
-           anvil.turn(780, 0.5);
+           anvil.turn(780, -0.5);
            anvil.moveFB(500, -0.7);
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
             sleep(1000);
@@ -168,7 +168,7 @@ public class DepotAuton extends LinearOpMode {
             anvil.turn(780, 0.5);
             anvil.moveFB(900, -0.7); //Back from lander position (This should knock off the jewel as well
             sleep(700);
-            anvil.turn(780, -0.5);
+            anvil.turn(780, 0.5);
             anvil.moveFB(500, -0.7);
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
             sleep(1000);
