@@ -110,13 +110,14 @@ public class CraterAuton extends LinearOpMode {
         detector.ratioScorer.weight = 5; //
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustmen
         waitForStart();
-        anvil.liftMov(3800, -1); //lower the lift
-        anvil.moveFB(100, -1);
-        anvil.moveLR(100, 1);
+        anvil.liftAccMov(1); //lower the lift
+        anvil.moveFB(200, -0.5);
+        anvil.servoMov(0.65, 0.35); //Putting up the bird cage
+        anvil.moveLR(200, 0.5);
         sleep(100);
-        anvil.moveLR(500, -1);
-        anvil.turn(550, 0.5); //turning to align with center
-        anvil.cServo(anvil.phoneServo, 0.7);
+        anvil.moveLR(1400, -0.5);
+        anvil.moveFB(300, 0.7);
+        anvil.cServo(anvil.phoneServo, 0.6);
         detector.enable(); // Start the detector!
         sleep(1500);
         sleep(1000);
@@ -133,34 +134,33 @@ public class CraterAuton extends LinearOpMode {
                 if (detector.getXPosition() > 100 && detector.getXPosition() < 600) {
                     Dpos = RIGHT;
                 } else {
-                    anvil.turn(350, 0.5);
                     Dpos = RIGHT;
                 }
             }
         }
         anvil.cServo(anvil.phoneServo, 0.3);
         if (Dpos == CENTER){
-            anvil.turn(400, 0.5);
-            anvil.moveFB(500, -1); //Back from lander position (This should knock off the jewel as well
-            sleep(700);
-            anvil.moveFB(500, 1);
+            anvil.turn(950, 0.5);
+            anvil.moveFB(1000, -0.5); //Back from lander position (This should knock off the jewel as well
+           // sleep(700);
+            //anvil.moveFB(900, 0.5);
+           // anvil.turn(950, -0.5);
         } else if (Dpos == LEFT){
-            anvil.turn(400, 0.5);
-            anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well`
-            sleep(700);
-            anvil.moveFB(900, 1);
-            anvil.turn(450, -0.5);
+            anvil.turn(1050, 0.5);
+            anvil.moveFB(1300, -0.5); //Back from lander position (This should knock off the jewel as well`
+            //sleep(700);
+            //anvil.moveFB(900, 0.5);
+            //anvil.turn(950, -0.5);
         } else if (Dpos == RIGHT){
-            anvil.turn(400, 0.5);
-            anvil.moveFB(900, -1); //Back from lander position (This should knock off the jewel as well
-            sleep(700);
-            anvil.moveFB(900, 1);
-            anvil.turn(550, 0.5);
+            anvil.turn(1090, 0.5);
+            anvil.moveFB(1300, -0.5); //Back from lander position (This should knock off the jewel as well
+            //sleep(700);
+            //anvil.moveFB(900, 0.5);
+            //anvil.turn(590, -0.5);
         }
-        anvil.turn(700, 0.5); //may need to reverse
-        anvil.moveFB(900, -1);
+        /*anvil.moveFB(1200, 0.7);
         anvil.turn(400, 0.5); //may need to reverse
-        anvil.moveFB(1000, -1);
+        anvil.moveFB(1000, -0.7);
         anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
         anvil.armMov(1500, -0.5); //Moving arm to release marker
         sleep(500); //Waiting a bit so that arm is not out while the robot is moving
@@ -168,7 +168,7 @@ public class CraterAuton extends LinearOpMode {
         anvil.servoMov(0.6, 0.4); //Putting up the bird cage
         sleep(200);
         anvil.moveFB(2000, 1);
-
+*/
 
 
 
