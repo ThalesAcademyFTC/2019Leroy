@@ -146,14 +146,14 @@ public class CraterAuton extends LinearOpMode {
             //anvil.moveFB(900, 0.5);
            // anvil.turn(950, -0.5);
         } else if (Dpos == LEFT){
-            anvil.turn(1050, 0.5);
-            anvil.moveFB(1300, -0.5); //Back from lander position (This should knock off the jewel as well`
+            anvil.turn(900, 0.5);
+            anvil.moveFB(1350, -0.5); //Back from lander position (This should knock off the jewel as well`
             //sleep(700);
             //anvil.moveFB(900, 0.5);
             //anvil.turn(950, -0.5);
         } else if (Dpos == RIGHT){
-            anvil.turn(1090, 0.5);
-            anvil.moveFB(1300, -0.5); //Back from lander position (This should knock off the jewel as well
+            anvil.turn(900, 0.5);
+            anvil.moveFB(1350, -0.5); //Back from lander position (This should knock off the jewel as well
             //sleep(700);
             //anvil.moveFB(900, 0.5);
             //anvil.turn(590, -0.5);
