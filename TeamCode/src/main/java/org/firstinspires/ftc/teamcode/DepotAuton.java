@@ -117,7 +117,7 @@ public class DepotAuton extends LinearOpMode {
         anvil.moveLR(200, 0.5);
         sleep(100);
         anvil.moveLR(1400, -0.5);
-        anvil.moveFB(285, 0.7);
+        anvil.moveFB(150, 0.7);
         anvil.cServo(anvil.phoneServo, 0.6);
         detector.enable(); // Start the detector!
         sleep(1500);
@@ -153,10 +153,10 @@ public class DepotAuton extends LinearOpMode {
             anvil.moveFB(1200, 0.7);
             anvil.turn(1200, 0.5);
             anvil.moveFB(1900, -1); //Moving towards the crater */
-            anvil.turn(450, 0.7);
-            anvil.moveFB(550, -0.7);
+           // anvil.turn(600, 0.7);
+          //  anvil.moveFB(550, -0.7);
         } else if (Dpos == LEFT){
-            anvil.turn(780, 0.5);
+            anvil.turn(1050, 0.5);
             anvil.moveFB(1300, -0.7); //Back from lander position h4n (This should knock off the jewel as well`
            sleep(700);
            anvil.turn(850, -0.5);
@@ -168,16 +168,20 @@ public class DepotAuton extends LinearOpMode {
             sleep(500); //Waiting a bit so that arm is not out while the robot is moving
             anvil.armMov(1500, 0.5); //Bringing back the arm
             anvil.servoMov(0.65, 0.35); //Putting up the bird cage
-            anvil.turn(100, 0.5);
-            anvil.moveFB(2000, 1);
+            anvil.turn(100, -0.5);
+            anvil.moveFB(1600, 1);
+            anvil.servoMov(0.3, 0.7);
+            anvil.customMov(anvil.slideMotor, 1);
+            sleep(1500);
+            anvil.customMov(anvil.slideMotor, 0);
         } else if (Dpos == RIGHT){
-            anvil.turn(720, 0.5);
+            anvil.turn(1000, 0.5);
             anvil.moveLR(600, 0.5);
             anvil.moveFB(1300, -0.7); //Back from lander position (This should knock off the jewel as well
             sleep(700);
-            anvil.turn(1050, 0.5);
+            anvil.turn(1250, 0.5);
             anvil.moveLR(1050, 0.5);
-            anvil.moveFB(600, -0.7);
+            anvil.moveFB(800, -0.7);
             anvil.servoMov(0.3, 0.7); //Moving the birdcage platform so arm does not get stuck
             sleep(1000);
             anvil.armMov(1500, -0.5); //Moving arm to release marker
@@ -189,7 +193,7 @@ public class DepotAuton extends LinearOpMode {
             anvil.moveFB(1600, 1);
             anvil.servoMov(0.3, 0.7);
             anvil.customMov(anvil.slideMotor, 1);
-            sleep(1000);
+            sleep(1500);
             anvil.customMov(anvil.slideMotor, 0);
         }
        /* sleep(200);
