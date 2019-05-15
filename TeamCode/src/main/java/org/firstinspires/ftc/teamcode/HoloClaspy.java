@@ -21,7 +21,7 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.HOLONOMIC;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Steve", group="Pushbot")
+@TeleOp(name="Dead Robot", group="Pushbot")
 //@Disabled
 public class HoloClaspy extends OpMode {
     //Initializing the Hardware Drive Anvil

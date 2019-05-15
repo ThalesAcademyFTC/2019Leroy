@@ -14,7 +14,7 @@ import static org.firstinspires.ftc.teamcode.Anvil.drivetrain.WEST_COAST;
  */
 
 @TeleOp(name="Bolt", group="Pushbot")
-public class ClaspTeleop extends OpMode {
+public class BoltClaspy extends OpMode {
     //Initiates the Anvil object.
     private Anvil anvil = new Anvil();
     @Override
@@ -60,14 +60,8 @@ public class ClaspTeleop extends OpMode {
             //Ensures that if the gamepad is at rest, then the robot does not move.
             anvil.rest();
         } else {
-            if (Math.abs(gamepad2.right_stick_x) > Math.abs(gamepad2.left_stick_y)) {
-                //Turns right when left stick is negative.
-                anvil.turnLeft(gamepad2.left_stick_x);
-            } else {
-                //Uses diff function, which means that the robot goes forward and backward,
-                //Also allows robot to turn and move forward simultaneously.
-                anvil.diff(gamepad2.left_stick_x, -gamepad2.left_stick_y);
-            }
+            anvil.motor1.setPower(-gamepad2.left_stick_y);
+            anvil.motor2.setPower(-gamepad2.right_stick_y);
         }
     }
 }
